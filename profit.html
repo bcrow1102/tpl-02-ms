@@ -738,26 +738,35 @@
         }
 
         function normalizeUnitData(data) {
-            return data
-                .map(item => ({
-                    dong: Number(item.dong),
-                    ho: item.ho !== null && item.ho !== '' ? Number(item.ho) : null,
-                    type: item.type || '',
-                    floorgroup: item.floorgroup || '',
-                    jeonse: Number(item.jeonse || 0),
-                    salePrice: Number(item.saleprice || 0),
-                    contract1_1: Number(item.contract_1 || 0),
-                    contract1_2: Number(item.contract_2 || 0),
-                    contract2: Number(item.contract2 || 0),
-                    loan: Number(item.loan || 0),
-                    balance: Number(item.balance || 0),
-                    preMoveInCost:
-                        Number(item.contract_1 || 0) +
-                        Number(item.contract_2 || 0) +
-                        Number(item.contract2 || 0),
-                    realMoveInCost: Number(item.realcash || 0),
-                    returnPolicy: '매입을 선택하지 않을 경우 반환 구조는 상담 시 안내드립니다.'
-                }));
+            const rows = data.unit_rules || [];
+
+            return rows.map(item => ({
+                dong: Number(item.dong),
+                ho: item.ho !== null && item.ho !== '' ? Number(item.ho) : null,
+                type: item.type || '',
+                floorgroup: item.floorgroup || '',
+                styletype: item.styletype || '',
+                pricetext: item.pricetext || '',
+
+                jeonse: Number(item.jeonse || 0),
+                salePrice: Number(item.saleprice || 0),
+
+                contract1_1: Number(item.contract_1 || 0),
+                contract1_2: Number(item.contract_2 || 0),
+                contract2: Number(item.contract2 || 0),
+
+                loan: Number(item.loan || 0),
+                balance: Number(item.balance || 0),
+
+                preMoveInCost:
+                    Number(item.contract_1 || 0) +
+                    Number(item.contract_2 || 0) +
+                    Number(item.contract2 || 0),
+
+                realMoveInCost: Number(item.realcash || 0),
+
+                returnPolicy: '매입을 선택하지 않을 경우 반환 구조는 상담 시 안내드립니다.'
+            }));
         }
 
         function getDongs() {
