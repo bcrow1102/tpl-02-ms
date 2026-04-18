@@ -840,7 +840,7 @@
             }
 
             const individual = unitData.find(
-                item => item.dong === dong && item.ho === ho
+                item => Number(item.dong) === dong && Number(item.ho) === ho
             );
 
             if (individual) {
@@ -852,7 +852,7 @@
 
             const group = unitData.find(
                 item =>
-                    item.dong === dong &&
+                    Number(item.dong) === dong &&
                     item.ho === null &&
                     matchGroup(item.floorgroup, floor)
             );
