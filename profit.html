@@ -854,8 +854,8 @@
         }
 
         function searchUnit() {
-            const dong = Number(dongSelect.value);
-            const ho = Number(hoInput.value);
+            const dong = parseInt(dongSelect.value, 10);
+            const ho = parseInt(String(hoInput.value).trim(), 10);
 
             if (!dong || !ho) {
                 alert('동과 호수를 입력해 주세요.');
@@ -864,7 +864,7 @@
 
             const exceptionRows = unitRaw.unit_exceptions || [];
             const exception = exceptionRows.find(
-                item => Number(item.dong) === dong && Number(item.ho) === ho
+                item => Number(item.dong) === dong && parseInt(item.ho, 10) === ho
             );
 
             if (exception) {
@@ -873,24 +873,14 @@
             }
 
             if (dong === 101 || dong === 102) {
-                const generalRow = unitData.find(
-                    item =>
-                        Number(item.dong) === dong &&
-                        item.styletype === 'normal' &&
-                        item.floorgroup === '전체'
-                );
-
-                renderMessageResult(
-                    `${dong}동 전체 기준 · ${generalRow?.type || '84A'}`,
-                    generalRow?.pricetext || '일반분양 세대입니다'
-                );
+                renderMessageResult(`${dong}동 ${ho}호`, '일반분양 호실입니다');
                 return;
             }
 
             const individual = unitData.find(
                 item =>
                     Number(item.dong) === dong &&
-                    Number(item.ho) === ho &&
+                    parseInt(item.ho, 10) === ho &&
                     item.styletype === 'calc'
             );
 
