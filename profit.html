@@ -687,6 +687,7 @@
 
     <script>
         let unitData = [];
+        let unitRaw = {};
 
         fetch('data/unit-data.json')
             .then(res => {
@@ -696,6 +697,7 @@
                 return res.json();
             })
             .then(data => {
+                unitRaw = data;
                 unitData = normalizeUnitData(data);
                 populateDongs();
             })
@@ -813,6 +815,27 @@
             guideEmptyState.hidden = true;
             guideResult.hidden = false;
         }
+        function renderMessageResult(title, message) {
+            unitTitle.textContent = title;
+            unitDesc.textContent = message;
+
+            realCashValue.textContent = formatKrwMan(0);
+            realCashDesc.textContent = message;
+
+            jeonseValue.innerHTML = `${formatKrwMan(0)}<span class="guide-list__sub">안내 기준 금액</span>`;
+            saleValue.innerHTML = `${formatKrwMan(0)}<span class="guide-list__sub">안내 기준 금액</span>`;
+
+            contract1_1.textContent = formatKrwMan(0);
+            contract1_2.textContent = formatKrwMan(0);
+            contract2.textContent = formatKrwMan(0);
+
+            loanValue.textContent = formatKrwMan(0);
+            balanceValue.textContent = formatKrwMan(0);
+            moveInValue.innerHTML = `${formatKrwMan(0)}<span class="guide-list__sub">안내 기준 금액</span>`;
+
+            guideEmptyState.hidden = true;
+            guideResult.hidden = false;
+        }
 
         function getFloor(ho) {
             return Math.floor(ho / 100);
@@ -839,8 +862,36 @@
                 return;
             }
 
-            const individual = unitData.find(
+            const exceptionRows = unitRaw.unit_exceptions || [];
+            const exception = exceptionRows.find(
                 item => Number(item.dong) === dong && Number(item.ho) === ho
+            );
+
+            if (exception) {
+                renderMessageResult(`${dong}동 ${ho}호`, '부대시설입니다');
+                return;
+            }
+
+            if (dong === 101 || dong === 102) {
+                const generalRow = unitData.find(
+                    item =>
+                        Number(item.dong) === dong &&
+                        item.styletype === 'normal' &&
+                        item.floorgroup === '전체'
+                );
+
+                renderMessageResult(
+                    `${dong}동 전체 기준 · ${generalRow?.type || '84A'}`,
+                    generalRow?.pricetext || '일반분양 세대입니다'
+                );
+                return;
+            }
+
+            const individual = unitData.find(
+                item =>
+                    Number(item.dong) === dong &&
+                    Number(item.ho) === ho &&
+                    item.styletype === 'calc'
             );
 
             if (individual) {
@@ -848,21 +899,7 @@
                 return;
             }
 
-            const floor = getFloor(ho);
-
-            const group = unitData.find(
-                item =>
-                    Number(item.dong) === dong &&
-                    item.ho === null &&
-                    matchGroup(item.floorgroup, floor)
-            );
-
-            if (group) {
-                renderUnit(group, true);
-                return;
-            }
-
-            alert('해당 호실 정보가 없습니다.');
+            renderMessageResult(`${dong}동 ${ho}호`, '없는 호실입니다');
         }
 
         guideSearchBtn.addEventListener('click', searchUnit);
