@@ -738,7 +738,7 @@
         }
 
         function normalizeUnitData(data) {
-            const rows = data.unit_rules || [];
+            const rows = Array.isArray(data) ? data : (data.unit_rules || []);
 
             return rows.map(item => ({
                 dong: Number(item.dong),
