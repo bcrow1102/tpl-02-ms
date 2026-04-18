@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>zimo — 동·호별 조건 확인</title>
+    <meta name="description" content="동·호별 전세가, 분양금액, 계약금과 실입주금을 바로 확인하세요." />
+    <meta name="theme-color" content="#FFFFFF" />
+
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+        :root {
+            --guide-blue: #5c83ed;
+            --guide-blue-dark: #3f6fe6;
+            --guide-navy: #111827;
+            --guide-text: #4b5563;
+            --guide-line: rgba(17, 24, 39, 0.08);
+            --guide-soft: rgba(92, 131, 237, 0.08);
+            --guide-soft-2: rgba(92, 131, 237, 0.04);
+        }
+
+        body {
+            background: #ffffff;
+            color: var(--guide-navy);
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        .price-guide {
+            position: relative;
+            padding: 96px 24px 56px;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+
+        .price-guide::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 140px;
+            background: linear-gradient(to bottom, rgba(92, 131, 237, 0.08) 0%, rgba(92, 131, 237, 0.03) 40%, rgba(255, 255, 255, 0) 100%);
+            pointer-events: none;
+        }
+
+        .price-guide__inner {
+            position: relative;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .price-guide__top {
+            max-width: 760px;
+            margin: 0 auto 32px;
+            text-align: center;
+        }
+
+        .price-guide__eyebrow {
+            display: inline-block;
+            margin-bottom: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--guide-blue);
+        }
+
+        .price-guide__title {
+            margin: 0;
+            font-size: clamp(34px, 5vw, 58px);
+            line-height: 1.08;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #111111;
+        }
+
+        .price-guide__title span {
+            color: var(--guide-blue);
+        }
+
+        .price-guide__desc {
+            margin: 20px auto 0;
+            max-width: 650px;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #666666;
+        }
+
+        .price-guide__search {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 14px;
+            align-items: end;
+            background: #ffffff;
+            border: 1px solid var(--guide-line);
+            border-radius: 28px;
+            padding: 26px;
+            box-shadow: 0 18px 40px rgba(17, 24, 39, 0.05);
+            margin-bottom: 22px;
+        }
+
+        .guide-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .guide-field label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #6b7280;
+            letter-spacing: -0.01em;
+        }
+
+        .guide-field select,
+        .guide-field input {
+            width: 100%;
+            min-height: 56px;
+            padding: 0 16px;
+            border: 1px solid rgba(17, 24, 39, 0.10);
+            border-radius: 16px;
+            background: #ffffff;
+            color: #111111;
+            font-size: 16px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .guide-field select {
+            appearance: none;
+            background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%), linear-gradient(135deg, #6b7280 50%, transparent 50%);
+            background-position: calc(100% - 22px) calc(50% - 3px), calc(100% - 16px) calc(50% - 3px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .guide-field select:focus,
+        .guide-field input:focus {
+            border-color: rgba(92, 131, 237, 0.6);
+            box-shadow: 0 0 0 4px rgba(92, 131, 237, 0.12);
+        }
+
+        .guide-submit {
+            min-width: 190px;
+            height: 56px;
+            border: none;
+            border-radius: 16px;
+            background: var(--guide-blue);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            box-shadow: 0 14px 28px rgba(92, 131, 237, 0.22);
+        }
+
+        .guide-submit:hover {
+            transform: translateY(-1px);
+            background: var(--guide-blue-dark);
+            box-shadow: 0 16px 32px rgba(92, 131, 237, 0.28);
+        }
+
+        .guide-quick-note {
+            margin: 0 0 28px;
+            text-align: center;
+            font-size: 14px;
+            color: #7b8190;
+        }
+
+        .guide-result {
+            display: grid;
+            gap: 20px;
+        }
+
+        .guide-result[hidden] {
+            display: none;
+        }
+
+        .guide-hero-card {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 20px;
+            background: #ffffff;
+            border: 1px solid var(--guide-line);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 42px rgba(17, 24, 39, 0.05);
+        }
+
+        .guide-hero-card__left {
+            padding: 32px 30px;
+            background: linear-gradient(180deg, rgba(92, 131, 237, 0.07) 0%, rgba(92, 131, 237, 0.02) 100%);
+        }
+
+        .guide-hero-card__right {
+            padding: 32px 30px;
+            background: #ffffff;
+            border-left: 1px solid var(--guide-line);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .guide-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: rgba(92, 131, 237, 0.12);
+            color: var(--guide-blue);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .guide-unit {
+            margin: 0;
+            font-size: clamp(28px, 3vw, 40px);
+            line-height: 1.08;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            color: #111111;
+        }
+
+        .guide-unit-sub {
+            margin: 14px 0 0;
+            font-size: 16px;
+            line-height: 1.75;
+            color: #6b7280;
+        }
+
+        .guide-emphasis-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .guide-emphasis-value {
+            margin: 0;
+            font-size: clamp(34px, 4vw, 50px);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.045em;
+            color: var(--guide-blue);
+        }
+
+        .guide-emphasis-desc {
+            margin: 12px 0 0;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #4b5563;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .guide-card {
+            background: #ffffff;
+            border: 1px solid var(--guide-line);
+            border-radius: 28px;
+            padding: 28px 24px;
+            box-shadow: 0 18px 40px rgba(17, 24, 39, 0.04);
+        }
+
+        .guide-card__label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 32px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: var(--guide-soft);
+            color: var(--guide-blue);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .guide-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 14px;
+        }
+
+        .guide-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+        }
+
+        .guide-list li:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .guide-list__name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .guide-list__value {
+            text-align: right;
+            font-size: 18px;
+            font-weight: 800;
+            color: #111111;
+            line-height: 1.35;
+            letter-spacing: -0.02em;
+            word-break: keep-all;
+        }
+
+        .guide-list__sub {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b93a3;
+        }
+
+        .guide-note-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .guide-note {
+            background: linear-gradient(180deg, rgba(92, 131, 237, 0.05) 0%, rgba(92, 131, 237, 0.02) 100%);
+            border: 1px solid rgba(92, 131, 237, 0.10);
+            border-radius: 28px;
+            padding: 26px 24px;
+        }
+
+        .guide-note h3 {
+            margin: 0 0 10px;
+            font-size: 22px;
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #111111;
+        }
+
+        .guide-note p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #4b5563;
+        }
+
+        .guide-cta {
+            text-align: center;
+            background: linear-gradient(180deg, rgba(92, 131, 237, 0.04) 0%, rgba(92, 131, 237, 0.01) 100%);
+            border: 1px solid rgba(92, 131, 237, 0.10);
+            border-radius: 32px;
+            padding: 40px 24px;
+        }
+
+        .guide-cta h3 {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.25;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #111111;
+        }
+
+        .guide-cta p {
+            margin: 14px auto 0;
+            max-width: 640px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #5b6472;
+        }
+
+        .guide-cta__row {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .guide-empty {
+            text-align: center;
+            padding: 44px 24px;
+            border: 1px dashed rgba(92, 131, 237, 0.22);
+            border-radius: 28px;
+            background: rgba(92, 131, 237, 0.03);
+            color: #5b6472;
+        }
+
+        .guide-empty strong {
+            color: #111111;
+        }
+
+        @media (max-width: 991px) {
+            .price-guide {
+                padding: 84px 20px 44px;
+            }
+
+            .price-guide__search,
+            .guide-hero-card,
+            .guide-grid,
+            .guide-note-box {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-hero-card__right {
+                border-left: 0;
+                border-top: 1px solid var(--guide-line);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .price-guide__title {
+                font-size: 36px;
+            }
+
+            .price-guide__desc {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
+            .price-guide__search {
+                padding: 22px 18px;
+                border-radius: 22px;
+            }
+
+            .guide-submit,
+            .guide-field select,
+            .guide-field input {
+                min-height: 52px;
+            }
+
+            .guide-hero-card,
+            .guide-card,
+            .guide-note,
+            .guide-cta,
+            .guide-empty {
+                border-radius: 22px;
+            }
+
+            .guide-hero-card__left,
+            .guide-hero-card__right,
+            .guide-card,
+            .guide-note,
+            .guide-cta {
+                padding: 24px 20px;
+            }
+
+            .guide-unit {
+                font-size: 28px;
+            }
+
+            .guide-emphasis-value {
+                font-size: 38px;
+            }
+
+            .guide-cta h3 {
+                font-size: 24px;
+            }
+
+            .guide-cta__row .zimo-btn {
+                width: 100%;
+            }
+        }
+
+        .contract-wrap {
+            display: grid;
+            gap: 16px;
+        }
+
+        .contract-group {
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            border-radius: 18px;
+            padding: 16px;
+            background: #fff;
+        }
+
+        .contract-group-title {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #1e3a8a;
+        }
+
+        .contract-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            border-top: 1px solid rgba(17, 24, 39, 0.06);
+        }
+
+        .contract-row:first-of-type {
+            border-top: none;
+        }
+
+        .contract-row strong {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header" aria-label="Site header">
+        <div class="header-inner container">
+            <a href="index.html" class="header-brand">
+                <span class="header-brand__logo">zimo</span>
+                <span class="header-brand__tagline">같은 집, 다른 조건</span>
+            </a>
+            <nav class="header-nav" aria-label="Primary navigation"></nav>
+        </div>
+    </header>
+
+    <main class="price-guide">
+        <div class="price-guide__inner">
+            <section class="price-guide__top">
+                <span class="price-guide__eyebrow">zimo price guide</span>
+                <h1 class="price-guide__title">
+                    동 · 호수를 선택하면<br />
+                    <span>조건을 바로 확인할 수 있습니다</span>
+                </h1>
+                <p class="price-guide__desc">
+                    전세가, 분양금액, 계약 시 준비해야 하는 금액과 실입주금까지 한 번에 확인할 수 있게 정리했습니다.
+                </p>
+            </section>
+
+            <section class="price-guide__search" aria-label="동호수 조건 검색">
+                <div class="guide-field">
+                    <label for="dongSelect">동 선택</label>
+                    <select id="dongSelect">
+                        <option value="">동을 선택하세요</option>
+                    </select>
+                </div>
+
+                <div class="guide-field">
+                    <label for="hoInput">호 입력</label>
+                    <input type="number" id="hoInput" placeholder="예: 1203" min="1" step="1" inputmode="numeric" />
+                </div>
+
+                <button type="button" class="guide-submit" id="guideSearchBtn">조건 확인하기</button>
+            </section>
+
+            <p class="guide-quick-note">동과 호수를 선택하면 해당 세대 기준으로 전세가 / 분양금액 / 계약금 구조가 바로 표시됩니다.</p>
+
+            <section class="guide-empty" id="guideEmptyState">
+                <strong>동과 호수를 선택하면</strong><br />
+                해당 세대의 전세가, 분양금액, 계약금 1차·2차, 중도금 대출, 잔금, 실입주금이 표시됩니다.
+            </section>
+
+            <section class="guide-result" id="guideResult" hidden>
+                <article class="guide-hero-card">
+                    <div class="guide-hero-card__left">
+                        <span class="guide-badge">선택 세대 기준</span>
+                        <h2 class="guide-unit" id="unitTitle">101동 1203호 · 84A</h2>
+                        <p class="guide-unit-sub" id="unitDesc">
+                            지금 거주 기준인 전세가와 10년 후 매입 결정 시 기준이 되는 분양금액을 함께 확인할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="guide-hero-card__right">
+                        <div class="guide-emphasis-label">입주전까지 준비해야 하는 금액</div>
+                        <p class="guide-emphasis-value" id="realCashValue">3,000만 원</p>
+                        <p class="guide-emphasis-desc" id="realCashDesc">
+                            계약금과 잔금 구조를 기준으로 확인한 현재 진입 기준 금액입니다.
+                        </p>
+                    </div>
+                </article>
+
+                <div class="guide-grid">
+                    <article class="guide-card">
+                        <span class="guide-card__label">PRICE</span>
+                        <ul class="guide-list">
+                            <li>
+                                <span class="guide-list__name">공급가액</span>
+                                <span class="guide-list__value" id="jeonseValue">3억 9,000만 원<span
+                                        class="guide-list__sub">10년간 거주 기준 금액</span></span>
+                            </li>
+                            <li>
+                                <span class="guide-list__name">분양금액</span>
+                                <span class="guide-list__value" id="saleValue">5억 7,000만 원<span
+                                        class="guide-list__sub">10년 후 매입 결정 시 금액</span></span>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="guide-card contract-card">
+                        <span class="guide-card__label">CONTRACT</span>
+
+                        <div class="contract-wrap">
+
+                            <!-- 1차 계약금 -->
+                            <div class="contract-group">
+                                <div class="contract-group-title">1차 계약금</div>
+
+                                <div class="contract-row">
+                                    <span>계약 시</span>
+                                    <strong id="contract1_1">1,000만 원</strong>
+                                </div>
+
+                                <div class="contract-row">
+                                    <span>계약일 +7일</span>
+                                    <strong id="contract1_2">2,000만 원</strong>
+                                </div>
+                            </div>
+
+                            <!-- 2차 계약금 -->
+                            <div class="contract-group">
+                                <div class="contract-group-title">2차 계약금</div>
+
+                                <div class="contract-row">
+                                    <span>건축심의 접수 시</span>
+                                    <strong id="contract2">2,000만 원</strong>
+                                </div>
+                            </div>
+
+                        </div>
+                    </article>
+
+                    <article class="guide-card">
+                        <span class="guide-card__label">MOVE-IN</span>
+                        <ul class="guide-list">
+                            <li>
+                                <span class="guide-list__name">중도금 대출</span>
+                                <span class="guide-list__value" id="loanValue">2억 3,400만 원</span>
+                            </li>
+                            <li>
+                                <span class="guide-list__name">잔금</span>
+                                <span class="guide-list__value" id="balanceValue">1억 600만 원</span>
+                            </li>
+                            <li>
+                                <span class="guide-list__name">실입주금</span>
+                                <span class="guide-list__value" id="moveInValue">3,000만 원<span
+                                        class="guide-list__sub">현재 기준 실제 준비 금액</span></span>
+                            </li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="guide-note-box">
+                    <article class="guide-note">
+                        <h3>10년 후 매입도 바로 판단</h3>
+                        <p>
+                            선택한 세대의 분양금액은 10년 후 매입 여부를 결정할 때 기준이 되는 금액입니다. 지금 거주 기준과 나중 매입 기준을 한 화면에서 같이 확인할 수 있습니다.
+                        </p>
+                    </article>
+                    <article class="guide-note">
+                        <h3>미매입 시 반환 구조 확인</h3>
+                        <p id="returnPolicyText">
+                            매입을 선택하지 않을 경우에는 공급가액과 년차별 상승 보증금 기준으로 반환 구조를 확인하게 됩니다. 자세한 내용은 상담 시 안내해드립니다.
+                        </p>
+                    </article>
+                </div>
+
+                <section class="guide-cta">
+                    <h3>선택한 조건 그대로 상담 받을 수 있습니다</h3>
+                    <p id="ctaText">
+                        지금 보고 있는 세대 기준으로 전세가, 분양금액, 계약금 구조를 바로 상담받아보세요.
+                    </p>
+                    <div class="guide-cta__row">
+                        <a href="tel:01059361556" class="zimo-btn zimo-btn--primary">전화 상담</a>
+                        <a href="https://open.kakao.com/o/s5zqB6pi" class="zimo-btn zimo-btn--secondary" target="_blank"
+                            rel="noopener">카카오톡 상담</a>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        let unitData = [];
+
+        fetch('data/unit-data.json')
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('JSON 파일을 불러오지 못했습니다.');
+                }
+                return res.json();
+            })
+            .then(data => {
+                unitData = normalizeUnitData(data);
+                populateDongs();
+            })
+            .catch(error => {
+                console.error(error);
+                alert('데이터 파일을 불러오지 못했습니다. 경로와 Live Server를 확인해 주세요.');
+            });
+
+        const dongSelect = document.getElementById('dongSelect');
+        const hoInput = document.getElementById('hoInput');
+        const guideSearchBtn = document.getElementById('guideSearchBtn');
+        const guideResult = document.getElementById('guideResult');
+        const guideEmptyState = document.getElementById('guideEmptyState');
+
+        const unitTitle = document.getElementById('unitTitle');
+        const realCashValue = document.getElementById('realCashValue');
+        const realCashDesc = document.getElementById('realCashDesc');
+        const jeonseValue = document.getElementById('jeonseValue');
+        const saleValue = document.getElementById('saleValue');
+        const contract1_1 = document.getElementById('contract1_1');
+        const contract1_2 = document.getElementById('contract1_2');
+        const contract2 = document.getElementById('contract2');
+        const loanValue = document.getElementById('loanValue');
+        const balanceValue = document.getElementById('balanceValue');
+        const moveInValue = document.getElementById('moveInValue');
+        const returnPolicyText = document.getElementById('returnPolicyText');
+        const ctaText = document.getElementById('ctaText');
+
+        function formatKrw(value) {
+            return new Intl.NumberFormat('ko-KR').format(value) + '원';
+        }
+
+        function formatKrwMan(value) {
+            const eok = Math.floor(value / 100000000);
+            const man = Math.round((value % 100000000) / 10000);
+
+            if (eok > 0 && man > 0) return `${eok}억 ${new Intl.NumberFormat('ko-KR').format(man)}만 원`;
+            if (eok > 0) return `${eok}억 원`;
+            return `${new Intl.NumberFormat('ko-KR').format(man)}만 원`;
+        }
+        function normalizeUnitData(data) {
+            return data
+                .filter(item => item.ho !== null && item.ho !== '' && Number(item.ho) > 0)
+                .map(item => ({
+                    dong: Number(item.dong),
+                    ho: Number(item.ho),
+                    type: item.type || '',
+                    jeonse: Number(item.jeonse || 0),
+                    salePrice: Number(item.saleprice || 0),
+                    contract1_1: Number(item.contract_1 || 0),
+                    contract1_2: Number(item.contract_2 || 0),
+                    contract2: Number(item.contract2 || 0),
+                    loan: Number(item.loan || 0),
+                    balance: Number(item.balance || 0),
+                    preMoveInCost: Number(item.realcash || 0),
+                    realMoveInCost: Number(item.realcash || 0),
+                    returnPolicy: '매입을 선택하지 않을 경우 반환 구조는 상담 시 안내드립니다.'
+                }));
+        }
+
+        function getDongs() {
+            return [...new Set(unitData.map(item => item.dong))].sort((a, b) => a - b);
+        }
+
+
+        function populateDongs() {
+            dongSelect.innerHTML = '<option value="">동을 선택하세요</option>';
+
+            const dongs = getDongs();
+            dongs.forEach(dong => {
+                const option = document.createElement('option');
+                option.value = String(dong);
+                option.textContent = `${dong}동`;
+                dongSelect.appendChild(option);
+            });
+        }
+
+
+
+        function renderUnit(item) {
+            unitTitle.textContent = `${item.dong}동 ${item.ho}호 · ${item.type}`;
+            realCashValue.textContent = formatKrwMan(item.preMoveInCost);
+            realCashDesc.textContent = `${item.dong}동 ${item.ho}호 기준 입주 전까지 준비해야 하는 금액입니다.`;
+            jeonseValue.innerHTML = `${formatKrwMan(item.jeonse)}<span class="guide-list__sub">10년간 거주 기준 금액</span>`;
+            saleValue.innerHTML = `${formatKrwMan(item.salePrice)}<span class="guide-list__sub">10년 후 매입 결정 시 금액</span>`;
+            contract1_1.textContent = formatKrwMan(item.contract1_1);
+            contract1_2.textContent = formatKrwMan(item.contract1_2);
+            contract2.textContent = formatKrwMan(item.contract2);
+            loanValue.textContent = formatKrwMan(item.loan);
+            balanceValue.textContent = formatKrwMan(item.balance);
+            moveInValue.innerHTML = `${formatKrwMan(item.realMoveInCost)}<span class="guide-list__sub">현재 기준 실제 준비 금액</span>`;
+            returnPolicyText.textContent = item.returnPolicy || '매입을 선택하지 않을 경우 반환 구조는 상담 시 안내드립니다.';
+            ctaText.textContent = `${item.dong}동 ${item.ho}호 기준으로 전세가, 분양금액, 계약금 구조를 그대로 상담받을 수 있습니다.`;
+
+            guideEmptyState.hidden = true;
+            guideResult.hidden = false;
+            guideResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function searchUnit() {
+            const dong = Number(dongSelect.value);
+            const ho = Number(hoInput.value);
+
+            if (!dong || !ho) {
+                alert('동과 호수를 모두 입력해 주세요.');
+                return;
+            }
+
+            const target = unitData.find(
+                item => item.dong === dong && item.ho === ho
+            );
+
+            if (!target) {
+                alert('선택한 세대 데이터를 찾지 못했습니다.');
+                return;
+            }
+
+            renderUnit(target);
+        }
+
+        guideSearchBtn.addEventListener('click', searchUnit);
+
+        hoInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') searchUnit();
+        });
+
+    </script>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

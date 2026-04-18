@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>zimo — 같은 집, 다른 조건</title>
+
+  <meta name="description" content="같은 매물도 접근 방식에 따라 조건이 달라집니다. 지모 전용 혜택을 확인하세요." />
+  <meta name="theme-color" content="#FFFFFF" />
+
+  <!-- Pretendard Font -->
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       META PIXEL BASE CODE
+  ============================================================ -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      }; if (!f._fbq) f._fbq = n;
+      n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+    }
+      (window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_META_PIXEL_ID');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- END META PIXEL -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet" />
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="site-header" aria-label="Site header">
+    <div class="header-inner container">
+      <a href="#" class="header-brand">
+        <span class="header-brand__logo">zimo</span>
+        <span class="header-brand__tagline">같은 집, 다른 조건</span>
+      </a>
+      <nav class="header-nav" aria-label="Primary navigation"></nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HERO SPLIT
+  ============================================================ -->
+  <section class="hero hero-split" id="hero">
+    <div class="hero-split-inner">
+
+      <!-- LEFT 70 -->
+      <div class="hero-left">
+        <img src="assets/img/hero.jpg" alt="휴먼 블루드빌 전경" />
+
+        <div class="hero-left-copy">
+          <p class="copy-top">9억 아파트</p>
+          <h2 class="copy-main">3억으로 시작해서 5억에 사는 방법</h2>
+          <p class="copy-price">잔여세대 일부만 가능한 조건입니다</p>
+        </div>
+
+        <div class="scroll-indicator" aria-hidden="true">
+          <span>scroll</span>
+          <div class="scroll-arrow">↓</div>
+        </div>
+      </div>
+
+      <!-- RIGHT 30 -->
+      <div class="hero-right">
+        <div class="info-card">
+
+          <div class="info-card__header">
+            <div class="info-card__media">
+              <span class="info-card__tag">잔여세대 한정</span>
+              <p class="info-card__title info-card__title--brand">
+                <span class="title-mark" aria-hidden="true"></span>
+                <span class="title-text">문수로 써밋 블루밍</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card__body">
+            <ul class="info-card__stats">
+              <li>
+                <span class="stat-label">위치</span>
+                <span class="stat-value">울산시 남구 신정동 1839-1번지 일원</span>
+              </li>
+              <li>
+                <span class="stat-label">총 세대</span>
+                <span class="stat-value">366 세대</span>
+              </li>
+              <li>
+                <span class="stat-label">확정 분양가</span>
+                <span class="stat-value">5억 대</span>
+              </li>
+            </ul>
+
+            <a href="tel:01059361556" class="btn btn-primary" onclick="fbq('track','Lead')">
+              7천만원 혜택 받기 클릭
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — INFO TABS
+  ============================================================ -->
+  <section class="zimo-info-tabs" id="info-tabs">
+    <div class="zimo-info-tabs__inner">
+
+      <div class="zimo-info-tabs__top">
+        <span class="zimo-info-tabs__eyebrow">zimo detail check</span>
+        <h2 class="zimo-info-tabs__title">
+          조건만 보고 끝내지 말고<br />
+          <span>실제 내부와 구성도 확인하세요</span>
+        </h2>
+        <p class="zimo-info-tabs__desc">
+          평형, 유니트, 커뮤니티까지 필요한 정보만 눌러서 볼 수 있게 구성했습니다.
+        </p>
+      </div>
+
+      <div class="zimo-info-tabs__nav" role="tablist" aria-label="상세 정보 탭">
+        <button class="zimo-info-tab" type="button" role="tab" aria-selected="false" data-tab="plan">
+          평형 정보
+        </button>
+        <button class="zimo-info-tab" type="button" role="tab" aria-selected="false" data-tab="unit">
+          유니트 영상
+        </button>
+        <button class="zimo-info-tab" type="button" role="tab" aria-selected="false" data-tab="community">
+          커뮤니티
+        </button>
+      </div>
+
+      <div class="zimo-info-panels">
+        <!-- 평형 -->
+        <div class="zimo-info-panel" data-panel="plan">
+          <div class="zimo-info-panel__media">
+            <img src="assets/img/uni.jpg" alt="84단일 평형 이미지" />
+          </div>
+          <div class="zimo-info-panel__body">
+            <h3 class="zimo-info-panel__title">전 세대 84 단일 평형</h3>
+            <p class="zimo-info-panel__text">
+              구성 고민 없이 바로 선택 가능한 구조입니다.
+            </p>
+            <ul class="zimo-info-list">
+              <li>전 세대 동일한 84 타입 구성</li>
+              <li>선호도 높은 4Bay 구조</li>
+              <li>실거주 기준에서 가장 익숙한 구조</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 유니트 -->
+        <div class="zimo-info-panel" data-panel="unit">
+          <div class="zimo-info-panel__media zimo-info-panel__media--video">
+            <div class="zimo-video-frame">
+              <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="유니트 영상" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+          <div class="zimo-info-panel__body">
+            <div class="zimo-info-tags">
+              <span class="zimo-chip">실내 확인</span>
+              <span class="zimo-chip">동선 체크</span>
+              <span class="zimo-chip">현장 체감</span>
+            </div>
+            <h3 class="zimo-info-panel__title">사진보다 빠른 건 실제 영상입니다</h3>
+            <p class="zimo-info-panel__text">
+              고객이 “정보가 부족하다”고 느끼는 가장 큰 이유는 내부 감이 안 오기 때문입니다.
+              유니트 영상 하나만 있어도 체감 신뢰가 확 올라갑니다.
+            </p>
+            <ul class="zimo-info-list">
+              <li>유튜브 링크만 교체해서 재사용 가능</li>
+              <li>모바일에서도 바로 재생 가능</li>
+              <li>상담 전 1차 검증용으로 매우 좋음</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 커뮤니티 -->
+        <div class="zimo-info-panel" data-panel="community">
+          <div class="zimo-info-panel__media">
+            <img src="assets/img/community.jpg" alt="커뮤니티 시설 이미지" />
+          </div>
+          <div class="zimo-info-panel__body">
+            <div class="zimo-info-tags">
+              <span class="zimo-chip">커뮤니티</span>
+              <span class="zimo-chip">생활편의</span>
+              <span class="zimo-chip">부대시설</span>
+            </div>
+            <h3 class="zimo-info-panel__title">생활 만족도를 결정하는 부대시설</h3>
+            <p class="zimo-info-panel__text">
+              헬스장, 라운지, 주민공간, 조경 같은 요소는 길게 설명할수록 지루하다.
+              그래서 태그처럼 짧게 보이고, 이미지는 크게 보여주는 쪽이 낫다.
+            </p>
+            <ul class="zimo-info-list">
+              <li>헬스장 / GX / 라운지</li>
+              <li>입주민 휴게공간</li>
+              <li>프로젝트별 핵심 시설만 선택 노출</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — FINAL CTA
+  ============================================================ -->
+  <section id="final-cta" class="zimo-final">
+    <div class="zimo-final__inner">
+
+      <div class="zimo-final__top">
+        <span class="zimo-final__eyebrow">zimo final guide</span>
+        <h2 class="zimo-final__title">
+          같은 집도, 어디서 보느냐에 따라<br />
+          <span>조건은 달라집니다</span>
+        </h2>
+        <p class="zimo-final__desc">
+          실거주 선택부터 수익형 비교까지, zimo는 마지막에 망설이게 하지 않고
+          바로 판단하게 만듭니다.
+        </p>
+      </div>
+
+      <div class="zimo-final__summary">
+        <article class="zimo-summary-card">
+          <span class="zimo-summary-card__label">CONDITION</span>
+          <h3 class="zimo-summary-card__title">
+            <a href="#" class="zimo-summary-card__link"
+              onclick="event.preventDefault(); alert('혜택코드는 이벤트 진행 시 발급됩니다.');">
+              조건 보기 → 터치
+            </a>
+          </h3>
+          <p class="zimo-summary-card__text">
+            같은 매물도 조건은 다를 수 있습니다<br />
+            할인 · 지원금 · 계약 혜택 먼저 확인
+          </p>
+        </article>
+
+        <article class="zimo-summary-card">
+          <span class="zimo-summary-card__label">PROFIT</span>
+          <h3 class="zimo-summary-card__title">
+            <a href="profit.html" class="zimo-summary-card__link">분양가 보기 → 터치</a>
+          </h3>
+          <p class="zimo-summary-card__text">
+            월세 · 대출 기준으로<br />
+            예상 수익 흐름을 바로 계산합니다
+          </p>
+        </article>
+      </div>
+
+      <div class="zimo-final__closing">
+        <p class="zimo-final__closing-text">
+          이제는 매물을 더 보는 것보다,
+          <strong>조건이 더 좋은 쪽을 먼저 확인할 차례입니다.</strong>
+        </p>
+
+        <div class="zimo-final__cta-row">
+          <a href="tel:01059361556" class="zimo-btn zimo-btn--primary">전화 상담</a>
+          <a href="https://open.kakao.com/o/s5zqB6pi" class="zimo-btn zimo-btn--secondary" target="_blank"
+            rel="noopener">카카오톡 상담</a>
+        </div>
+
+        <p class="zimo-final__sub-contact">
+          통화가 어려우시면 <a href="sms:01059361556">문자로 문의</a>
+        </p>
+      </div>
+
+      <div class="zimo-final__info">
+        <div class="zimo-final__info-item">
+          <span class="zimo-final__info-label">운영시간</span>
+          <strong>평일 09:00 - 21:00</strong>
+        </div>
+        <div class="zimo-final__info-item">
+          <span class="zimo-final__info-label">상담채널</span>
+          <strong>전화 / 카카오 상담 가능</strong>
+        </div>
+        <div class="zimo-final__info-item">
+          <span class="zimo-final__info-label">zimo 안내</span>
+          <strong>같은 집, 다른 조건</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tabs = document.querySelectorAll(".zimo-info-tab");
+      const panels = document.querySelectorAll(".zimo-info-panel");
+
+      if (!tabs.length || !panels.length) return;
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", function () {
+          const target = tab.dataset.tab;
+          const targetPanel = document.querySelector(`.zimo-info-panel[data-panel="${target}"]`);
+          const isOpen = tab.classList.contains("is-active");
+
+          tabs.forEach((item) => {
+            item.classList.remove("is-active");
+            item.setAttribute("aria-selected", "false");
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.remove("is-active");
+          });
+
+          if (!isOpen && targetPanel) {
+            tab.classList.add("is-active");
+            tab.setAttribute("aria-selected", "true");
+            targetPanel.classList.add("is-active");
+          }
+        });
+      });
+    });
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
