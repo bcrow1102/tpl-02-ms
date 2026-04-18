@@ -738,11 +738,11 @@
         }
         function normalizeUnitData(data) {
             return data
-                .filter(item => item.ho !== null && item.ho !== '' && Number(item.ho) > 0)
                 .map(item => ({
                     dong: Number(item.dong),
-                    ho: Number(item.ho),
+                    ho: item.ho !== null && item.ho !== '' ? Number(item.ho) : null,
                     type: item.type || '',
+                    floorgroup: item.floorgroup || '',
                     jeonse: Number(item.jeonse || 0),
                     salePrice: Number(item.saleprice || 0),
                     contract1_1: Number(item.contract_1 || 0),
@@ -750,7 +750,10 @@
                     contract2: Number(item.contract2 || 0),
                     loan: Number(item.loan || 0),
                     balance: Number(item.balance || 0),
-                    preMoveInCost: Number(item.contract_1 || 0) + Number(item.contract_2 || 0) + Number(item.contract2 || 0),
+                    preMoveInCost:
+                        Number(item.contract_1 || 0) +
+                        Number(item.contract_2 || 0) +
+                        Number(item.contract2 || 0),
                     realMoveInCost: Number(item.realcash || 0),
                     returnPolicy: '매입을 선택하지 않을 경우 반환 구조는 상담 시 안내드립니다.'
                 }));
@@ -775,24 +778,52 @@
 
 
 
-        function renderUnit(item) {
-            unitTitle.textContent = `${item.dong}동 ${item.ho}호 · ${item.type}`;
+        function renderUnit(item, isGroup = false) {
+
+            if (isGroup) {
+                unitTitle.textContent = `${item.dong}동 ${item.floorgroup} 기준 · ${item.type}`;
+            } else {
+                unitTitle.textContent = `${item.dong}동 ${item.ho}호 · ${item.type}`;
+            }
+
             realCashValue.textContent = formatKrwMan(item.preMoveInCost);
-            realCashDesc.textContent = `${item.dong}동 ${item.ho}호 기준 입주 전까지 준비해야 하는 금액입니다.`;
+
+            realCashDesc.textContent = isGroup
+                ? `${item.dong}동 ${item.floorgroup} 기준으로 안내되는 금액입니다.`
+                : `${item.dong}동 ${item.ho}호 기준 입주 전까지 준비해야 하는 금액입니다.`;
+
             jeonseValue.innerHTML = `${formatKrwMan(item.jeonse)}<span class="guide-list__sub">10년간 거주 기준 금액</span>`;
             saleValue.innerHTML = `${formatKrwMan(item.salePrice)}<span class="guide-list__sub">10년 후 매입 결정 시 금액</span>`;
+
             contract1_1.textContent = formatKrwMan(item.contract1_1);
             contract1_2.textContent = formatKrwMan(item.contract1_2);
             contract2.textContent = formatKrwMan(item.contract2);
+
             loanValue.textContent = formatKrwMan(item.loan);
             balanceValue.textContent = formatKrwMan(item.balance);
+
             moveInValue.innerHTML = `${formatKrwMan(item.realMoveInCost)}<span class="guide-list__sub">입주 시 까지 소요되는 금액</span>`;
-            returnPolicyText.textContent = item.returnPolicy || '매입을 선택하지 않을 경우 반환 구조는 상담 시 안내드립니다.';
-            ctaText.textContent = `${item.dong}동 ${item.ho}호 기준으로 전세가, 분양금액, 계약금 구조를 그대로 상담받을 수 있습니다.`;
 
             guideEmptyState.hidden = true;
             guideResult.hidden = false;
-            guideResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function getFloor(ho) {
+            if (ho < 1000) return Math.floor(ho / 100);
+            return Math.floor(ho / 100);
+        }
+
+        function matchGroup(floorgroup, floor) {
+            if (!floorgroup) return false;
+
+            if (floorgroup.includes('전체')) return true;
+
+            if (floorgroup.includes('~')) {
+                const [min, max] = floorgroup.replace('층', '').split('~').map(Number);
+                return floor >= min && floor <= max;
+            }
+
+            return false;
         }
 
         function searchUnit() {
@@ -800,21 +831,39 @@
             const ho = Number(hoInput.value);
 
             if (!dong || !ho) {
-                alert('동과 호수를 모두 입력해 주세요.');
+                alert('동과 호수를 입력해 주세요.');
                 return;
             }
 
-            const target = unitData.find(
+            // 1️⃣ 개별 먼저
+            const individual = unitData.find(
                 item => item.dong === dong && item.ho === ho
             );
 
-            if (!target) {
-                alert('선택한 세대 데이터를 찾지 못했습니다.');
+            if (individual) {
+                renderUnit(individual, false);
                 return;
             }
 
-            renderUnit(target);
+            // 2️⃣ 그룹 fallback
+            const floor = getFloor(ho);
+
+            const group = unitData.find(
+                item =>
+                    item.dong === dong &&
+                    item.ho === null &&
+                    matchGroup(item.floorgroup, floor)
+            );
+
+            if (group) {
+                renderUnit(group, true);
+                return;
+            }
+
+            // 3️⃣ 없음
+            alert('해당 호실 정보가 없습니다.');
         }
+
 
         guideSearchBtn.addEventListener('click', searchUnit);
 
