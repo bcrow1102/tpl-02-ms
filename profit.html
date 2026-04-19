@@ -37,12 +37,7 @@
         }
 
         .price-guide::before {
-            content: "";
-            position: absolute;
-            inset: 0 0 auto 0;
-            height: 140px;
-            background: linear-gradient(to bottom, rgba(92, 131, 237, 0.08) 0%, rgba(92, 131, 237, 0.03) 40%, rgba(255, 255, 255, 0) 100%);
-            pointer-events: none;
+            display: none;
         }
 
         .price-guide__inner {
@@ -353,8 +348,8 @@
         }
 
         .guide-note {
-            background: linear-gradient(180deg, rgba(92, 131, 237, 0.05) 0%, rgba(92, 131, 237, 0.02) 100%);
-            border: 1px solid rgba(92, 131, 237, 0.10);
+            background: #ffffff;
+            border: 1px solid var(--guide-line);
             border-radius: 28px;
             padding: 26px 24px;
         }
@@ -377,8 +372,8 @@
 
         .guide-cta {
             text-align: center;
-            background: linear-gradient(180deg, rgba(92, 131, 237, 0.04) 0%, rgba(92, 131, 237, 0.01) 100%);
-            border: 1px solid rgba(92, 131, 237, 0.10);
+            background: #ffffff;
+            border: 1px solid var(--guide-line);
             border-radius: 32px;
             padding: 40px 24px;
         }
@@ -571,8 +566,6 @@
 
                 <button type="button" class="guide-submit" id="guideSearchBtn">조건 확인하기</button>
             </section>
-
-            <p class="guide-quick-note">동과 호수를 선택하면 해당 세대 기준으로 전세가 / 분양금액 / 계약금 구조가 바로 표시됩니다.</p>
 
             <section class="guide-empty" id="guideEmptyState">
                 <strong>동과 호수를 선택하면</strong><br />
