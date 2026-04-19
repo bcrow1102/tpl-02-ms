@@ -143,6 +143,18 @@
             box-shadow: 0 0 0 4px rgba(92, 131, 237, 0.12);
         }
 
+        /* 호 입력창 spinner 제거 */
+        #hoInput::-webkit-outer-spin-button,
+        #hoInput::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #hoInput {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
         .guide-submit {
             min-width: 190px;
             height: 56px;
@@ -540,7 +552,7 @@
                     <span>조건을 바로 확인할 수 있습니다</span>
                 </h1>
                 <p class="price-guide__desc">
-                    전세가, 분양금액, 계약 시 준비해야 하는 금액과 실입주금까지 한 번에 확인할 수 있게 정리했습니다.
+                    안내드리는 내용은 현재 기준 참고 자료로, 실제 분양금액·계약조건·잔여세대·혜택은 현장 상담 및 진행 시점에 따라 일부 달라질 수 있습니다.
                 </p>
             </section>
 
