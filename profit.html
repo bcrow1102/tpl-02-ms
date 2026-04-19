@@ -847,15 +847,11 @@
                 return;
             }
 
-            if (dong === 101 || dong === 102) {
-                renderMessageResult(`${dong}동 ${ho}호`, '일반분양 호실입니다');
-                return;
-            }
-
+            // 1순위: 개별 calc 호실
             const individual = unitData.find(
                 item =>
-                    item.dong === dong &&
-                    item.ho === ho &&
+                    Number(item.dong) === dong &&
+                    Number(item.ho) === ho &&
                     item.styletype === 'calc'
             );
 
@@ -865,12 +861,33 @@
             }
 
             const floor = Math.floor(ho / 100);
+            const line = ho % 100;
 
-            if (floor >= 6 && floor <= 16) {
+            let validLines = [];
+
+            if (dong === 101) {
+                validLines = [1, 2, 3];
+            } else if (dong === 102) {
+                validLines = [1, 2, 3, 4];
+            } else {
+                validLines = [...new Set(
+                    unitData
+                        .filter(item =>
+                            Number(item.dong) === dong &&
+                            item.styletype === 'calc' &&
+                            item.ho
+                        )
+                        .map(item => Number(item.ho) % 100)
+                )];
+            }
+
+            // 2순위: 일반분양
+            if (floor >= 1 && floor <= 26 && validLines.includes(line)) {
                 renderMessageResult(`${dong}동 ${ho}호`, '일반분양 호실입니다');
                 return;
             }
 
+            // 3순위: 없는 호실
             renderMessageResult(`${dong}동 ${ho}호`, '없는 호실입니다');
         }
 
