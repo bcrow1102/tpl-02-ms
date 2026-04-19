@@ -872,6 +872,27 @@
                 return;
             }
 
+            const floor = Math.floor(ho / 100);
+
+            let floorGroup = '';
+            if (floor >= 6 && floor <= 16) {
+                floorGroup = '6~16층';
+            }
+
+            if (floorGroup) {
+                const grouped = unitData.find(
+                    item =>
+                        item.dong === dong &&
+                        item.styletype === 'normal' &&
+                        item.floorgroup === floorGroup
+                );
+
+                if (grouped) {
+                    renderUnit(grouped, true);
+                    return;
+                }
+            }
+
             renderMessageResult(`${dong}동 ${ho}호`, '없는 호실입니다');
         }
 
