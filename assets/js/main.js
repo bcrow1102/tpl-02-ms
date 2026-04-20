@@ -32,100 +32,44 @@
   });
 
   /* -----------------------------
-     split hero animation
+     saas hero animation
   ----------------------------- */
-  function initSplitHero() {
-    var heroLeft = document.querySelector('.hero-left');
-    var heroLeftImage = document.querySelector('.hero-left img');
-    var heroRight = document.querySelector('.hero-right');
-    var copyTop = document.querySelector('.copy-top');
-    var copyMain = document.querySelector('.copy-main');
-    var copySub = document.querySelector('.copy-sub');
-    var copyPrice = document.querySelector('.copy-price');
-    var textEls = [copyTop, copyMain, copySub, copyPrice].filter(Boolean);
+  function initSaasHero() {
+    var hero = document.querySelector('.hero-saas');
+    var eyebrow = document.querySelector('.hero-saas__eyebrow-wrap');
+    var title = document.querySelector('.hero-saas__title');
+    var desc = document.querySelector('.hero-saas__desc');
+    var ctas = document.querySelector('.hero-saas__cta-row');
+    var meta = document.querySelector('.hero-saas__meta');
+    var items = [eyebrow, title, desc, ctas, meta].filter(Boolean);
 
-    /* --- fallback if GSAP not loaded --- */
+    if (!hero) return;
+
     if (typeof gsap === 'undefined') {
-      if (heroRight) {
-        heroRight.style.opacity = '1';
-        heroRight.style.transform = 'none';
-      }
-      textEls.forEach(function (el) {
+      items.forEach(function (el) {
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
       return;
     }
 
-    /* --- FOUC prevention: hide everything before animating --- */
-    if (heroLeftImage) {
-      gsap.set(heroLeftImage, { scale: 1.08, x: -40, transformOrigin: 'center center' });
-    }
-    if (heroRight) {
-      gsap.set(heroRight, { opacity: 0, x: 80 });
-    }
-    textEls.forEach(function (el) {
-      gsap.set(el, { opacity: 0, y: 30 });
+    items.forEach(function (el) {
+      gsap.set(el, { opacity: 0, y: 24 });
     });
 
-    /* --- build timeline --- */
     var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    /* 1) left image: scale down + slide in from left */
-    if (heroLeftImage) {
-      tl.to(heroLeftImage, {
-        scale: 1,
-        x: 0,
-        duration: 1.4
-      }, 0);
-    }
-
-    /* 2) text stack: staggered fade + rise */
-    if (copyTop) {
-      tl.to(copyTop, {
+    items.forEach(function (el, index) {
+      tl.to(el, {
         opacity: 1,
         y: 0,
-        duration: 0.6
-      }, 0.15);
-    }
-
-    if (copyMain) {
-      tl.to(copyMain, {
-        opacity: 1,
-        y: 0,
-        duration: 0.7
-      }, 0.25);
-    }
-
-    if (copySub) {
-      tl.to(copySub, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6
-      }, 0.5);
-    }
-
-    if (copyPrice) {
-      tl.to(copyPrice, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6
-      }, 0.65);
-    }
-
-    /* 3) right panel: slide in from right + fade */
-    if (heroRight) {
-      tl.to(heroRight, {
-        opacity: 1,
-        x: 0,
-        duration: 0.9,
-        ease: 'power2.out'
-      }, 0.35);
-    }
+        duration: 0.72
+      }, 0.08 * index);
+    });
   }
 
   /* -----------------------------
-     boot
+     info tabs
   ----------------------------- */
   function initInfoTabs() {
     var tabs = document.querySelectorAll('.zimo-info-tab');
@@ -177,7 +121,17 @@
     }
   }
 
+  /* -----------------------------
+     boot
+  ----------------------------- */
   function boot() {
-    initSplitHero();
+    initSaasHero();
     initInfoTabs();
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();

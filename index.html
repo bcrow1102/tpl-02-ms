@@ -10,19 +10,14 @@
   <meta name="description" content="같은 매물도 접근 방식에 따라 조건이 달라집니다. 지모 전용 혜택을 확인하세요." />
   <meta name="theme-color" content="#FFFFFF" />
 
-  <!-- Pretendard Font -->
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
 
-  <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
 
-  <!-- ============================================================
-       META PIXEL BASE CODE
-  ============================================================ -->
   <script>
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return; n = f.fbq = function () {
@@ -40,7 +35,6 @@
     <img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1" />
   </noscript>
-  <!-- END META PIXEL -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -48,85 +42,133 @@
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap"
     rel="stylesheet" />
 
-  <!-- ============================================================
-       HEADER
-  ============================================================ -->
+  <!-- HEADER -->
   <header class="site-header" aria-label="Site header">
     <div class="header-inner container">
       <a href="#" class="header-brand">
         <span class="header-brand__logo">zimo</span>
         <span class="header-brand__tagline">같은 집, 다른 조건</span>
       </a>
-      <nav class="header-nav" aria-label="Primary navigation"></nav>
+
+      <nav class="header-nav" aria-label="Primary navigation">
+        <a href="#info-tabs" class="header-nav__link">서비스 소개</a>
+        <a href="#final-cta" class="header-nav__link">광고문의</a>
+      </nav>
     </div>
   </header>
 
-  <!-- ============================================================
-       HERO SPLIT
-  ============================================================ -->
-  <section class="hero hero-split" id="hero">
-    <div class="hero-split-inner">
+  <!-- HERO -->
+  <section class="hero hero-saas" id="hero">
+    <div class="hero-saas__bg"></div>
 
-      <!-- LEFT 70 -->
-      <div class="hero-left">
-        <img src="assets/img/hero.jpg" alt="휴먼 블루드빌 전경" />
+    <div class="hero-saas__inner container">
+      <div class="hero-saas__grid">
 
-        <div class="hero-left-copy">
-          <p class="copy-top">9억 아파트</p>
-          <h2 class="copy-main">3억으로 시작해서 5억에 사는 방법</h2>
-          <p class="copy-price">잔여세대 일부만 가능한 조건입니다</p>
-        </div>
-
-        <div class="scroll-indicator" aria-hidden="true">
-          <span>scroll</span>
-          <div class="scroll-arrow">↓</div>
-        </div>
-      </div>
-
-      <!-- RIGHT 30 -->
-      <div class="hero-right">
-        <div class="info-card">
-
-          <div class="info-card__header">
-            <div class="info-card__media">
-              <span class="info-card__tag">잔여세대 한정</span>
-              <p class="info-card__title info-card__title--brand">
-                <span class="title-mark" aria-hidden="true"></span>
-                <span class="title-text">문수로 써밋 블루밍</span>
-              </p>
-            </div>
+        <!-- 좌측 -->
+        <div class="hero-saas__left">
+          <div class="hero-saas__eyebrow-wrap">
+            <span class="hero-saas__eyebrow">ZIMO EXCLUSIVE</span>
           </div>
 
-          <div class="info-card__body">
-            <ul class="info-card__stats">
-              <li>
-                <span class="stat-label">위치</span>
-                <span class="stat-value">울산시 남구 신정동 1839-1번지 일원</span>
-              </li>
-              <li>
-                <span class="stat-label">총 세대</span>
-                <span class="stat-value">366 세대</span>
-              </li>
-              <li>
-                <span class="stat-label">확정 분양가</span>
-                <span class="stat-value">5억 대</span>
-              </li>
-            </ul>
+          <h1 class="hero-saas__title">
+            같은 집도<br />
+            <span>조건은 다를 수</span><br />
+            <span>있습니다</span>
+          </h1>
 
-            <a href="tel:01059361556" class="btn btn-primary" onclick="fbq('track','Lead')">
-              7천만원 혜택 받기 클릭
+          <p class="hero-saas__desc">
+            지모를 통해 먼저 확인해야 하는 건<br />
+            매물 설명이 아니라 실제 계약 조건과 전용 혜택입니다.
+          </p>
+
+          <div class="hero-saas__cta-row">
+            <a href="#info-tabs" class="hero-saas__cta hero-saas__cta--primary js-zimo-scroll-open" data-open-tab="plan"
+              onclick="fbq('track','Lead')">
+              조건 확인하기
+            </a>
+
+            <a href="#info-tabs" class="hero-saas__cta hero-saas__cta--ghost js-zimo-scroll-open" data-open-tab="unit">
+              카카오 상담
             </a>
           </div>
+        </div>
+
+        <!-- 우측 -->
+        <div class="hero-saas__right">
+
+          <!-- 상단 큰 카드 -->
+          <article class="hero-saas-card hero-saas-card--primary">
+            <div class="hero-saas-card__topline">
+              <span class="hero-saas-card__badge">한정 세대 분양</span>
+            </div>
+
+            <h2 class="hero-saas-card__title">문수로 써밋 블루밍</h2>
+            <p class="hero-saas-card__sub">울산 신정동 · 현재 모집 중</p>
+
+            <div class="hero-saas-card__divider"></div>
+
+            <div class="hero-saas-card__stats hero-saas-card__stats--3col hero-saas-card__stats--actions">
+              <div class="hero-saas-card__stat">
+                <span class="hero-saas-card__label">위치</span>
+                <strong class="hero-saas-card__value">남구 신정동</strong>
+              </div>
+
+              <div class="hero-saas-card__stat">
+                <span class="hero-saas-card__label">세대수</span>
+                <strong class="hero-saas-card__value">366</strong>
+              </div>
+
+              <div class="hero-saas-card__stat hero-saas-card__stat--button">
+                <a href="profit.html" class="hero-card-action hero-card-action--primary">분양가 확인하기</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 중단 카드 -->
+          <article class="hero-saas-card hero-saas-card--secondary">
+            <div class="hero-saas-card__divider"></div>
+
+            <div class="hero-saas-card__stats hero-saas-card__stats--3col hero-saas-card__stats--actions">
+              <div class="hero-saas-card__stat">
+                <span class="hero-saas-card__label">지모 전용 혜택</span>
+                <strong class="hero-saas-card__value">계약조건 우선 공개</strong>
+              </div>
+
+              <div class="hero-saas-card__stat">
+                <span class="hero-saas-card__label">상담 방법</span>
+                <strong class="hero-saas-card__value">전화/ 문자/ 카카오 1:1</strong>
+              </div>
+
+              <div class="hero-saas-card__stat hero-saas-card__stat--button">
+                <a href="#" class="hero-card-action hero-card-action--ghost"
+                  onclick="event.preventDefault(); alert('혜택코드는 이벤트 진행 시 발급됩니다.');">
+                  조건 보기
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 하단 요약 카드 -->
+          <article class="hero-saas-card hero-saas-card--summary">
+            <div class="hero-saas-card__summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 10.5L12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor"
+                  stroke-width="1.8" stroke-linejoin="round" />
+              </svg>
+            </div>
+
+            <div class="hero-saas-card__summary-copy">
+              <span class="hero-saas-card__summary-label">지모를 통해 확인하는 것</span>
+              <strong class="hero-saas-card__summary-text">매물 설명 X → 실제 계약 조건 O</strong>
+            </div>
+          </article>
 
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- ============================================================
-       SECTION 2 — INFO TABS
-  ============================================================ -->
+  <!-- INFO TABS -->
   <section class="zimo-info-tabs" id="info-tabs">
     <div class="zimo-info-tabs__inner">
 
@@ -149,12 +191,11 @@
           유니트 영상
         </button>
         <button class="zimo-info-tab" type="button" role="tab" aria-selected="false" data-tab="community">
-          커뮤니티
+          커뮤니티 시설
         </button>
       </div>
 
       <div class="zimo-info-panels">
-        <!-- 평형 -->
         <div class="zimo-info-panel" data-panel="plan">
           <div class="zimo-info-panel__media">
             <img src="assets/img/uni.jpg" alt="84단일 평형 이미지" />
@@ -172,7 +213,6 @@
           </div>
         </div>
 
-        <!-- 유니트 -->
         <div class="zimo-info-panel" data-panel="unit">
           <div class="zimo-info-panel__media zimo-info-panel__media--video">
             <div class="zimo-video-frame">
@@ -201,7 +241,6 @@
           </div>
         </div>
 
-        <!-- 커뮤니티 -->
         <div class="zimo-info-panel" data-panel="community">
           <div class="zimo-info-panel__media">
             <img src="assets/img/community.jpg" alt="커뮤니티 시설 이미지" />
@@ -229,9 +268,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       SECTION 3 — FINAL CTA
-  ============================================================ -->
+  <!-- FINAL CTA -->
   <section id="final-cta" class="zimo-final">
     <div class="zimo-final__inner">
 
@@ -245,33 +282,6 @@
           실거주 선택부터 수익형 비교까지, zimo는 마지막에 망설이게 하지 않고
           바로 판단하게 만듭니다.
         </p>
-      </div>
-
-      <div class="zimo-final__summary">
-        <article class="zimo-summary-card">
-          <span class="zimo-summary-card__label">CONDITION</span>
-          <h3 class="zimo-summary-card__title">
-            <a href="#" class="zimo-summary-card__link"
-              onclick="event.preventDefault(); alert('혜택코드는 이벤트 진행 시 발급됩니다.');">
-              조건 보기 → 터치
-            </a>
-          </h3>
-          <p class="zimo-summary-card__text">
-            같은 매물도 조건은 다를 수 있습니다<br />
-            할인 · 지원금 · 계약 혜택 먼저 확인
-          </p>
-        </article>
-
-        <article class="zimo-summary-card">
-          <span class="zimo-summary-card__label">PROFIT</span>
-          <h3 class="zimo-summary-card__title">
-            <a href="profit.html" class="zimo-summary-card__link">분양가 보기 → 터치</a>
-          </h3>
-          <p class="zimo-summary-card__text">
-            월세 · 대출 기준으로<br />
-            예상 수익 흐름을 바로 계산합니다
-          </p>
-        </article>
       </div>
 
       <div class="zimo-final__closing">
@@ -313,13 +323,33 @@
     document.addEventListener("DOMContentLoaded", function () {
       const tabs = document.querySelectorAll(".zimo-info-tab");
       const panels = document.querySelectorAll(".zimo-info-panel");
+      const heroTriggers = document.querySelectorAll(".js-zimo-scroll-open");
 
       if (!tabs.length || !panels.length) return;
+
+      function openTab(target) {
+        const targetTab = document.querySelector(`.zimo-info-tab[data-tab="${target}"]`);
+        const targetPanel = document.querySelector(`.zimo-info-panel[data-panel="${target}"]`);
+
+        tabs.forEach((item) => {
+          item.classList.remove("is-active");
+          item.setAttribute("aria-selected", "false");
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.remove("is-active");
+        });
+
+        if (targetTab && targetPanel) {
+          targetTab.classList.add("is-active");
+          targetTab.setAttribute("aria-selected", "true");
+          targetPanel.classList.add("is-active");
+        }
+      }
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", function () {
           const target = tab.dataset.tab;
-          const targetPanel = document.querySelector(`.zimo-info-panel[data-panel="${target}"]`);
           const isOpen = tab.classList.contains("is-active");
 
           tabs.forEach((item) => {
@@ -331,10 +361,23 @@
             panel.classList.remove("is-active");
           });
 
-          if (!isOpen && targetPanel) {
-            tab.classList.add("is-active");
-            tab.setAttribute("aria-selected", "true");
-            targetPanel.classList.add("is-active");
+          if (!isOpen) {
+            openTab(target);
+          }
+        });
+      });
+
+      heroTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const target = trigger.dataset.openTab || "plan";
+          const section = document.querySelector("#info-tabs");
+
+          openTab(target);
+
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
       });
