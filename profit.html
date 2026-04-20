@@ -551,10 +551,48 @@
             border-color: #5c83ed;
         }
 
-        .guide-back-btn:hover {
-            background: #5c83ed;
-            color: #fff;
-            border-color: #5c83ed;
+        @media (max-width: 768px) {
+            .header-inner {
+                min-height: 64px;
+                gap: 10px;
+                flex-wrap: nowrap !important;
+                justify-content: space-between;
+            }
+
+            .header-brand {
+                min-width: 0;
+                flex: 0 1 auto;
+                gap: 0;
+                overflow: visible;
+            }
+
+            .header-brand__logo {
+                font-size: 1.25rem;
+                flex-shrink: 0;
+            }
+
+            .header-brand__tagline {
+                display: none !important;
+            }
+
+            .header-nav {
+                display: flex !important;
+                flex: 0 0 auto;
+                gap: 0;
+            }
+
+            .guide-back-btn {
+                height: 38px;
+                padding: 0 10px;
+                font-size: 13px;
+                border-radius: 10px;
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+
+            .price-guide {
+                padding: 84px 16px 44px;
+            }
         }
     </style>
 </head>
