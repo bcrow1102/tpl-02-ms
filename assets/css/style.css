@@ -1317,3 +1317,25 @@ select {
     white-space: nowrap;
   }
 }
+
+@media (max-width: 768px) {
+
+  .hero-saas-card--summary {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .hero-saas-card__summary-copy {
+    gap: 6px;
+  }
+
+  .hero-saas-card__summary-label {
+    line-height: 1.35;
+  }
+
+  .hero-saas-card__summary-text {
+    line-height: 1.58;
+    letter-spacing: -0.02em;
+  }
+
+}
