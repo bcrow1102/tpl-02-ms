@@ -524,17 +524,54 @@
             font-weight: 800;
             color: #111;
         }
+
+        .guide-back-btn {
+            height: 44px;
+            padding: 0 16px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #111;
+            background: #f8f9fb;
+            border: 1px solid rgba(17, 24, 39, .08);
+            white-space: nowrap;
+            width: auto;
+            min-width: auto;
+            line-height: 1;
+            transition: all .2s ease;
+        }
+
+        .guide-back-btn:hover {
+            background: #5c83ed;
+            color: #fff;
+            border-color: #5c83ed;
+        }
+
+        .guide-back-btn:hover {
+            background: #5c83ed;
+            color: #fff;
+            border-color: #5c83ed;
+        }
     </style>
 </head>
 
 <body>
     <header class="site-header" aria-label="Site header">
         <div class="header-inner container">
+
             <a href="index.html" class="header-brand">
                 <span class="header-brand__logo">zimo</span>
                 <span class="header-brand__tagline">같은 집, 다른 조건</span>
             </a>
-            <nav class="header-nav" aria-label="Primary navigation"></nav>
+
+            <nav class="header-nav" aria-label="Primary navigation">
+                <a href="index.html" class="guide-back-btn">← 돌아가기</a>
+            </nav>
+
         </div>
     </header>
 
