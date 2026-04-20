@@ -52,11 +52,28 @@
       </a>
 
       <nav class="header-nav" aria-label="Primary navigation">
-        <a href="#info-tabs" class="header-nav__link">서비스 소개</a>
-        <a href="#final-cta" class="header-nav__link">광고문의</a>
+        <button type="button" class="header-nav__link js-head-toggle" data-target="about">
+          지모 소개
+        </button>
+
+        <button type="button" class="header-nav__link js-head-toggle" data-target="ad">
+          광고 문의
+        </button>
       </nav>
     </div>
   </header>
+  <div class="header-drawer" id="header-drawer">
+    <div class="header-drawer__panel" data-panel="about">
+      같은 집, 다른 조건.<br>
+      지모는 분양 현장의 광고 효율과<br>
+      실제 문의 전환을 높입니다.
+    </div>
+
+    <div class="header-drawer__panel" data-panel="ad">
+      유튜브 · 메타 · 네이버 광고 · 랜딩페이지까지<br>
+      현장 맞춤형으로 운영합니다.
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero hero-saas" id="hero">
@@ -186,7 +203,8 @@
           <span>내부와 구성도 확인하세요</span>
         </h2>
         <p class="zimo-info-tabs__desc">
-          평형, 유니트, 커뮤니티까지 필요한 정보만 눌러서 볼 수 있게 구성했습니다.
+          평형, 유니트, 커뮤니티까지
+          필요한 정보만 눌러서 볼 수 있게 구성했습니다.
         </p>
       </div>
 
@@ -223,10 +241,11 @@
         <div class="zimo-info-panel" data-panel="unit">
           <div class="zimo-info-panel__media zimo-info-panel__media--video">
             <div class="zimo-video-frame">
-              <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="유니트 영상" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-              </iframe>
+              <div class="zimo-video-placeholder">
+                <div class="zimo-video-placeholder__icon">▶</div>
+                <strong>유니트 영상 준비중</strong>
+                <span>곧 실제 내부 영상을 업로드합니다</span>
+              </div>
             </div>
           </div>
           <div class="zimo-info-panel__body">
@@ -282,8 +301,8 @@
       <div class="zimo-final__top">
         <span class="zimo-final__eyebrow">zimo final guide</span>
         <h2 class="zimo-final__title">
-          같은 집도, 어디서 보느냐에 따라<br />
-          <span>조건은 달라집니다</span>
+          집은 같아도<br />
+          <span>계약 조건은 달라집니다</span>
         </h2>
       </div>
 
@@ -326,61 +345,71 @@
     document.addEventListener("DOMContentLoaded", function () {
       const tabs = document.querySelectorAll(".zimo-info-tab");
       const panels = document.querySelectorAll(".zimo-info-panel");
-      const heroTriggers = document.querySelectorAll(".js-zimo-scroll-open");
 
       if (!tabs.length || !panels.length) return;
 
-      function openTab(target) {
-        const targetTab = document.querySelector(`.zimo-info-tab[data-tab="${target}"]`);
-        const targetPanel = document.querySelector(`.zimo-info-panel[data-panel="${target}"]`);
-
-        tabs.forEach((item) => {
-          item.classList.remove("is-active");
-          item.setAttribute("aria-selected", "false");
+      function closeAllTabs() {
+        tabs.forEach((tab) => {
+          tab.classList.remove("is-active");
+          tab.setAttribute("aria-selected", "false");
         });
 
         panels.forEach((panel) => {
           panel.classList.remove("is-active");
         });
-
-        if (targetTab && targetPanel) {
-          targetTab.classList.add("is-active");
-          targetTab.setAttribute("aria-selected", "true");
-          targetPanel.classList.add("is-active");
-        }
       }
 
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", function () {
-          const target = tab.dataset.tab;
-          const isOpen = tab.classList.contains("is-active");
+      function openTab(target) {
+        const targetTab = document.querySelector(`.zimo-info-tab[data-tab="${target}"]`);
+        const targetPanel = document.querySelector(`.zimo-info-panel[data-panel="${target}"]`);
 
-          tabs.forEach((item) => {
-            item.classList.remove("is-active");
-            item.setAttribute("aria-selected", "false");
-          });
+        if (!targetTab || !targetPanel) return;
 
-          panels.forEach((panel) => {
-            panel.classList.remove("is-active");
-          });
+        closeAllTabs();
+        targetTab.classList.add("is-active");
+        targetTab.setAttribute("aria-selected", "true");
+        targetPanel.classList.add("is-active");
+      }
 
-          if (!isOpen) {
-            openTab(target);
-          }
-        });
-      });
+      document.addEventListener("click", function (e) {
+        const tab = e.target.closest(".zimo-info-tab");
+        if (!tab) return;
 
-      heroTriggers.forEach((trigger) => {
-        trigger.addEventListener("click", function (e) {
-          e.preventDefault();
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
 
-          const target = trigger.dataset.openTab || "plan";
-          const section = document.querySelector("#info-tabs");
+        const target = tab.dataset.tab;
+        const isOpen = tab.classList.contains("is-active");
 
+        if (isOpen) {
+          closeAllTabs();
+        } else {
           openTab(target);
+        }
+      }, true);
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".js-head-toggle");
+      const panels = document.querySelectorAll(".header-drawer__panel");
 
-          if (section) {
-            section.scrollIntoView({ behavior: "smooth", block: "start" });
+      function closeAll() {
+        panels.forEach(p => p.classList.remove("is-active"));
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", function () {
+          const target = this.dataset.target;
+          const panel = document.querySelector(`.header-drawer__panel[data-panel="${target}"]`);
+
+          const opened = panel.classList.contains("is-active");
+
+          closeAll();
+
+          if (!opened) {
+            panel.classList.add("is-active");
           }
         });
       });
