@@ -1,6 +1,8 @@
 /* =========================================================
-   zimo landing clean rebuild
-   header / hero / info tabs / final cta
+   zimo landing refactored full css
+   - current HTML structure maintained
+   - duplicate rules removed
+   - inline head style merged here
 ========================================================= */
 
 :root {
@@ -71,6 +73,12 @@ select {
   font: inherit;
 }
 
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
 .container {
   width: 100%;
   max-width: var(--max-w);
@@ -78,7 +86,13 @@ select {
   padding-inline: var(--pad-x);
 }
 
-/* HEADER */
+.mobile-only-break {
+  display: none;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
 .site-header {
   position: relative;
   z-index: 20;
@@ -130,7 +144,8 @@ select {
 }
 
 .header-nav__link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-size: 16px;
   font-weight: 600;
   color: #6b7280;
@@ -143,7 +158,34 @@ select {
   color: var(--blue);
 }
 
-/* HERO */
+.header-drawer {
+  position: absolute;
+  top: 72px;
+  right: 80px;
+  width: 340px;
+  z-index: 30;
+  padding: 0;
+}
+
+.header-drawer__panel {
+  display: none;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #111111;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.header-drawer__panel.is-active {
+  display: block;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
 .hero.hero-saas {
   position: relative;
   background: #ffffff;
@@ -279,7 +321,9 @@ select {
   border-color: rgba(92, 131, 237, 0.32);
 }
 
-/* HERO RIGHT */
+/* =========================================================
+   HERO RIGHT / CARDS
+========================================================= */
 .hero-saas__right {
   display: grid;
   grid-template-rows: minmax(280px, auto) auto auto;
@@ -287,61 +331,6 @@ select {
   align-content: start;
   align-self: start;
   margin-top: -28px;
-}
-
-.hero-saas__right>.hero-saas-card--summary {
-  min-height: 0;
-  padding: 10px 20px;
-  border-radius: 22px;
-  align-self: start;
-}
-
-.hero-saas-card--summary {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 64px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.hero-saas-card__summary-icon {
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
-  border-radius: 10px;
-  background: #ffffff;
-  border: 1px solid rgba(92, 131, 237, 0.1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--blue);
-}
-
-.hero-saas-card__summary-icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.hero-saas-card__summary-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.hero-saas-card__summary-label {
-  font-size: 13px;
-  line-height: 1.25;
-  color: #8e95a1;
-  letter-spacing: -0.01em;
-}
-
-.hero-saas-card__summary-text {
-  font-size: 16px;
-  line-height: 1.35;
-  letter-spacing: -0.03em;
-  font-weight: 800;
-  color: var(--text-primary);
 }
 
 .hero-saas-card {
@@ -363,6 +352,60 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.hero-saas__right>.hero-saas-card--summary {
+  min-height: 88px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  align-self: start;
+}
+
+.hero-saas-card--summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 88px;
+  padding: 18px 20px;
+}
+
+.hero-saas-card__summary-icon {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(92, 131, 237, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+}
+
+.hero-saas-card__summary-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hero-saas-card__summary-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.hero-saas-card__summary-label {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #8e95a1;
+  letter-spacing: -0.01em;
+}
+
+.hero-saas-card__summary-text {
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .hero-saas-card__topline {
@@ -387,11 +430,10 @@ select {
   flex-shrink: 0;
 }
 
-/* relay-lit "1차 분양 마감" */
 .relay-text {
   display: inline-flex;
   align-items: center;
-  font-family: 'GmarketSansMedium', var(--font-sans);
+  font-family: "GmarketSansMedium", var(--font-sans);
   font-size: 17px;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -492,28 +534,36 @@ select {
 .hero-saas-card__value {
   display: block;
   font-size: 16px;
-  line-height: 1.45;
-  font-weight: 800;
+  line-height: 1.55;
+  font-weight: 600;
   letter-spacing: -0.03em;
   color: var(--text-primary);
   word-break: keep-all;
 }
 
 .hero-saas-card__stats--3col .hero-saas-card__value {
-  font-size: 18px;
+  font-size: 17px;
+}
+
+.hero-saas-card--secondary .hero-saas-card__value {
+  line-height: 1.45;
+}
+
+.hero-saas-card--secondary .hero-saas-card__stat:nth-child(2) .hero-saas-card__value {
+  max-width: 180px;
 }
 
 .hero-saas-card__stat--button {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: stretch;
 }
 
 .hero-saas-card__stats--actions .hero-saas-card__stat--button {
   justify-content: center;
 }
 
-/* HERO CARD ACTIONS — base */
 .hero-card-action {
   display: inline-flex;
   align-items: center;
@@ -548,97 +598,75 @@ select {
   box-shadow: none;
 }
 
-/* HERO CARD ACTIONS — desktop hover */
-@media (min-width: 769px) {
-  .hero-card-action:hover {
-    transform: translateY(-1px);
-  }
-
-  .hero-card-action--primary:hover {
-    background: var(--blue-hover);
-    border-color: var(--blue-hover);
-    color: #ffffff;
-  }
-
-  .hero-card-action--ghost:hover {
-    background: #ffffff;
-    color: var(--blue);
-    border-color: rgba(92, 131, 237, 0.28);
-  }
+.hero-card-action--ghost.is-open {
+  background: #5c83ed;
+  color: #ffffff;
+  border-color: #5c83ed;
 }
 
-/* HERO CARD — desktop summary refinements */
-@media (min-width: 769px) {
-  .hero-saas-card__summary-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    flex: 0 0 40px;
-  }
-
-  .hero-saas-card__summary-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .hero-saas-card__summary-copy {
-    gap: 7px;
-  }
-
-  .hero-saas-card__summary-label {
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .hero-saas-card__summary-text {
-    font-size: 18px;
-    line-height: 1.58;
-  }
+/* =========================================================
+   HERO BENEFIT ACCORDION
+========================================================= */
+.hero-benefit-accordion {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+  margin-top: 0;
 }
 
-@media (min-width: 992px) {
+.hero-benefit-accordion.is-open {
+  max-height: 520px;
+  opacity: 1;
+  margin-top: 18px;
+}
 
-  .hero-saas-card--summary {
-    min-height: 88px;
-    gap: 14px;
-    padding: 18px 20px;
-    border-radius: 22px;
-    align-items: center;
-  }
+.hero-benefit-accordion__inner {
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(92, 131, 237, 0.06) 0%, rgba(92, 131, 237, 0.02) 100%);
+}
 
-  .hero-saas__right>.hero-saas-card--summary {
-    min-height: 88px;
-    padding: 18px 20px;
-  }
+.hero-benefit-accordion__title {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
 
-  /* 위계 조정 */
-  .hero-saas-card__value {
-    font-weight: 600;
-    line-height: 1.55;
-  }
+.hero-benefit-accordion__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
 
-  .hero-saas-card__stats--3col .hero-saas-card__value {
-    font-size: 17px;
-  }
+.hero-benefit-accordion__list li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4b5563;
+  word-break: keep-all;
+}
 
-  .hero-saas-card__summary-text {
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.5;
-  }
+.hero-benefit-accordion__list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #5c83ed;
+  font-weight: 800;
+}
 
-  .hero-saas-card__label,
-  .hero-saas-card__summary-label {
-    color: #8e95a1;
-  }
-
-  .hero-saas-card--secondary .hero-saas-card__value {
-    line-height: 1.45;
-  }
-
-  .hero-saas-card--secondary .hero-saas-card__stat:nth-child(2) .hero-saas-card__value {
-    max-width: 180px;
-  }
+.hero-benefit-accordion__note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #8b93a3;
 }
 
 /* =========================================================
@@ -740,15 +768,9 @@ select {
 }
 
 .zimo-info-tab.is-active {
-  background: #ffffff;
-  color: #111111;
-  border-color: var(--blue);
-  box-shadow: 0 10px 24px rgba(92, 131, 237, 0.12);
-}
-
-.zimo-info-tab.is-active {
   background: var(--blue);
   color: #ffffff;
+  border-color: var(--blue);
   box-shadow: 0 14px 26px rgba(92, 131, 237, 0.22);
 }
 
@@ -826,6 +848,43 @@ select {
   inset: 0;
   width: 100%;
   height: 100%;
+}
+
+.zimo-video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 24px;
+  color: #4964a9;
+}
+
+.zimo-video-placeholder__icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.zimo-video-placeholder strong {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.zimo-video-placeholder span {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b7ba8;
 }
 
 .zimo-info-panel__body {
@@ -950,7 +1009,8 @@ select {
   color: var(--text-primary);
 }
 
-.zimo-final__title span {
+.zimo-final__title span,
+.zimo-final__title .last-line {
   color: var(--blue);
 }
 
@@ -1080,6 +1140,7 @@ select {
 }
 
 .zimo-final__info-item strong {
+  display: block;
   font-size: 13px;
   line-height: 1.4;
   font-weight: 400;
@@ -1087,7 +1148,43 @@ select {
 }
 
 /* =========================================================
-   RESPONSIVE
+   DESKTOP REFINEMENTS
+========================================================= */
+@media (min-width: 769px) {
+  .hero-card-action:hover {
+    transform: translateY(-1px);
+  }
+
+  .hero-card-action--primary:hover {
+    background: var(--blue-hover);
+    border-color: var(--blue-hover);
+    color: #ffffff;
+  }
+
+  .hero-card-action--ghost:hover {
+    background: #ffffff;
+    color: var(--blue);
+    border-color: rgba(92, 131, 237, 0.28);
+  }
+
+  .zimo-info-tabs__nav {
+    gap: 22px;
+  }
+
+  .zimo-final__title .last-line {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1024px) {
+  .zimo-final__desc {
+    white-space: nowrap;
+  }
+}
+
+/* =========================================================
+   TABLET
 ========================================================= */
 @media (max-width: 1180px) {
   .hero.hero-saas {
@@ -1101,17 +1198,17 @@ select {
     min-height: auto;
   }
 
+  .hero-saas__left,
+  .hero-saas__right {
+    padding-top: 0;
+  }
+
   .hero-saas__left {
     max-width: 100%;
   }
 
   .hero-saas__desc {
     max-width: 720px;
-  }
-
-  .hero-saas__left,
-  .hero-saas__right {
-    padding-top: 0;
   }
 
   .hero-saas__right {
@@ -1154,16 +1251,22 @@ select {
   }
 
   .zimo-final__info-item strong {
-    display: block;
     font-size: 11px;
     line-height: 1.35;
     word-break: keep-all;
   }
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
 @media (max-width: 768px) {
   :root {
     --header-h: 52px;
+  }
+
+  .mobile-only-break {
+    display: block;
   }
 
   .site-header {
@@ -1185,13 +1288,49 @@ select {
 
   .header-nav {
     display: flex !important;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
   }
 
   .header-nav__link {
-    font-size: 14px;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .header-nav__link[data-target="about"]::before {
+    content: "ⓘ";
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 600;
+  }
+
+  .header-nav__link[data-target="ad"]::before {
+    content: "◔";
+    font-size: 11px;
+    color: #6b7280;
     font-weight: 700;
+  }
+
+  .header-drawer {
+    position: static;
+    width: auto;
+    padding: 0 16px 10px;
+    margin-top: 4px;
+  }
+
+  .header-drawer__panel {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .hero.hero-saas {
+    padding-top: 4px;
+    padding-bottom: 40px;
   }
 
   .hero-saas__grid {
@@ -1199,13 +1338,7 @@ select {
   }
 
   .hero-saas__eyebrow-wrap {
-    margin-bottom: 18px;
-  }
-
-  .hero-saas__eyebrow {
-    min-height: 34px;
-    padding: 0 14px;
-    font-size: 12px;
+    display: none;
   }
 
   .hero-saas__title {
@@ -1215,9 +1348,9 @@ select {
 
   .hero-saas__desc {
     margin-top: 20px;
+    max-width: 100%;
     font-size: 16px;
     line-height: 1.7;
-    max-width: 100%;
   }
 
   .hero-saas__cta-row {
@@ -1241,6 +1374,14 @@ select {
   .hero-saas-card--secondary,
   .hero-saas-card--summary {
     min-height: auto;
+  }
+
+  .hero-saas-card__topline {
+    gap: 8px;
+  }
+
+  .relay-text {
+    font-size: 16px;
   }
 
   .hero-saas-card__title {
@@ -1271,8 +1412,8 @@ select {
   }
 
   .hero-saas-card__label {
-    font-size: 12px;
     margin-bottom: 6px;
+    font-size: 12px;
   }
 
   .hero-saas-card__value {
@@ -1290,11 +1431,18 @@ select {
     border-radius: 12px;
   }
 
+  .hero-saas-card--summary {
+    align-items: flex-start;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    gap: 10px;
+  }
+
   .hero-saas-card__summary-icon {
     width: 42px;
     height: 42px;
-    border-radius: 12px;
     flex-basis: 42px;
+    border-radius: 12px;
   }
 
   .hero-saas-card__summary-icon svg {
@@ -1302,152 +1450,41 @@ select {
     height: 21px;
   }
 
-  .hero-saas-card__summary-label {
-    font-size: 12px;
-  }
-
-  .hero-saas-card__summary-text {
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .zimo-info-tabs__title {
-    font-size: 34px;
-  }
-
-  .zimo-info-tabs__desc {
-    font-size: 16px;
-    line-height: 1.7;
-  }
-
-  .zimo-info-tabs__nav {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-
-  .zimo-info-tab {
-    width: calc(50% - 4px);
-    min-height: 46px;
-    font-size: 14px;
-    padding: 0 12px;
-  }
-
-  .zimo-info-tab:last-child {
-    width: 100%;
-  }
-
-  .zimo-info-panel__body {
-    padding: 24px 20px;
-    border-radius: 22px;
-  }
-
-  .zimo-info-panel__media {
-    border-radius: 22px;
-  }
-
-  .zimo-info-panel__title {
-    font-size: 24px;
-  }
-
-  .zimo-info-panel__text {
-    font-size: 15px;
-    line-height: 1.75;
-  }
-
-  .zimo-final__title {
-    font-size: 36px;
-  }
-
-  .zimo-final__desc {
-    font-size: 16px;
-    line-height: 1.7;
-  }
-
-  .zimo-final__closing {
-    border-radius: 24px;
-    padding: 32px 18px;
-  }
-
-  .zimo-final__closing-text {
-    font-size: 20px;
-    line-height: 1.55;
-  }
-
-  .zimo-btn {
-    width: 100%;
-    min-width: 0;
-  }
-}
-
-@media (max-width: 460px) {
-  .hero-saas-card__stats--3col {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .hero-saas-card__stats--3col .hero-saas-card__stat {
-    padding: 0;
-    border-right: 0;
-  }
-
-  .hero-saas-card__stats--2x2 {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .hero-saas-card--summary {
-    align-items: flex-start;
-  }
-}
-
-@media (min-width: 1024px) {
-  .zimo-final__desc {
-    white-space: nowrap;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .hero-saas-card--summary {
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
   .hero-saas-card__summary-copy {
     gap: 6px;
   }
 
   .hero-saas-card__summary-label {
+    font-size: 12px;
     line-height: 1.35;
   }
 
   .hero-saas-card__summary-text {
+    font-size: 15px;
     line-height: 1.58;
     letter-spacing: -0.02em;
   }
 
-  .relay-text {
-    font-size: 16px;
+  .hero-benefit-accordion__inner {
+    padding: 16px 14px 14px;
+    border-radius: 16px;
   }
 
-  .hero-saas-card__topline {
-    gap: 8px;
+  .hero-benefit-accordion__title {
+    font-size: 14px;
   }
 
-  /* 헤더와 히어로 간격 축소 */
-  .hero.hero-saas {
-    padding-top: 4px;
-    padding-bottom: 40px;
+  .hero-benefit-accordion__list li {
+    font-size: 13px;
   }
 
-  .hero-saas__eyebrow-wrap {
-    margin-bottom: 14px;
+  .hero-benefit-accordion__note {
+    font-size: 12px;
+    letter-spacing: -0.03em;
+    line-height: 1.45;
+    white-space: nowrap;
   }
 
-  /* 두 번째 카드만 모바일 2열 + 하단 버튼 */
   .hero-saas-card--secondary .hero-saas-card__divider {
     display: none;
   }
@@ -1478,108 +1515,273 @@ select {
     margin-top: 6px;
   }
 
-  /* 버튼 크기 유지 */
   .hero-saas-card--secondary .hero-card-action {
     width: 100%;
     max-width: 100%;
   }
-}
 
-
-@media (min-width: 769px) {
-  .zimo-info-tabs__nav {
-    gap: 22px !important;
-  }
-}
-
-.header-nav button {
-  border: 0;
-  background: none;
-  cursor: pointer;
-  font: inherit;
-}
-
-.header-drawer {
-  position: absolute;
-  top: 72px;
-  right: 80px;
-  width: 340px;
-  z-index: 30;
-  padding: 0;
-}
-
-.header-drawer__panel {
-  display: none;
-  padding: 14px 16px;
-  background: #ffffff;
-  border: 1px solid rgba(17, 24, 39, .08);
-  border-radius: 14px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: #111;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, .08);
-}
-
-.header-drawer__panel.is-active {
-  display: block;
-}
-
-@media (max-width:768px) {
-  .header-drawer {
-    position: static;
-    width: auto;
-    padding: 0 16px 10px;
-  }
-}
-
-.mobile-only-break {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .header-nav {
-    display: flex !important;
-    gap: 10px;
-    align-items: center;
+  .zimo-info-tabs {
+    padding-bottom: 14px;
   }
 
-  .header-nav__link {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-  }
-
-  .header-drawer {
-    position: static;
-    width: auto;
-    padding: 0 16px 10px;
-    margin-top: 4px;
-  }
-
-  .header-drawer__panel {
-    font-size: 13px;
-    line-height: 1.65;
+  .zimo-info-tabs__title {
+    font-size: 34px;
   }
 
   .zimo-info-tabs__desc {
     max-width: 320px;
     margin: 18px auto 0;
+    font-size: 16px;
     line-height: 1.75;
     word-break: keep-all;
   }
 
-  .mobile-only-break {
+  .zimo-info-tabs__nav {
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .zimo-info-tab {
+    width: calc(50% - 4px);
+    min-height: 46px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .zimo-info-tab:last-child {
+    width: 100%;
+  }
+
+  .zimo-info-panel__media {
+    border-radius: 22px;
+  }
+
+  .zimo-info-panel__body {
+    padding: 24px 20px;
+    border-radius: 22px;
+  }
+
+  .zimo-info-panel__title {
+    font-size: 24px;
+  }
+
+  .zimo-info-panel__text {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .zimo-final {
+    padding: 28px 20px 44px;
+  }
+
+  .zimo-final__top {
+    margin: 0 auto 18px;
+  }
+
+  .zimo-final__eyebrow {
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+
+  .zimo-final__title {
+    font-size: 30px;
+    line-height: 1.06;
+    letter-spacing: -0.05em;
+  }
+
+  .zimo-final__title .last-line {
+    display: block;
+    white-space: nowrap;
+    font-size: 0.82em;
+    margin-top: 6px;
+  }
+
+  .zimo-final__desc {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .zimo-final__closing {
+    padding: 32px 18px;
+    border-radius: 24px;
+  }
+
+  .zimo-final__closing-text {
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .zimo-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .zimo-final__info {
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 22px;
+  }
+
+  .zimo-final__info-item {
+    padding: 0 4px;
+  }
+
+  .zimo-final__info-label {
+    margin-bottom: 6px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .zimo-final__info-item strong {
+    font-size: 11px;
+    line-height: 1.35;
+    white-space: nowrap;
+    letter-spacing: -0.03em;
+  }
+}
+
+@media (max-width: 460px) {
+  .hero-saas-card__stats--3col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .hero-saas-card__stats--3col .hero-saas-card__stat {
+    padding: 0;
+    border-right: 0;
+  }
+
+  .hero-saas-card__stats--2x2 {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+/* =========================================================
+   MOBILE HEADER PREMIUM MENU
+========================================================= */
+
+.header-nav__desktop {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.header-menu-toggle {
+  display: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.header-menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #b6bec9;
+  transition: all 0.22s ease;
+}
+
+.header-menu-toggle:hover span {
+  background: #8f98a5;
+}
+
+.header-menu-toggle.is-open span:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.header-menu-toggle.is-open span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+.header-mobile-menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .header-nav__desktop {
+    display: none;
+  }
+
+  .header-menu-toggle {
+    display: inline-flex;
+  }
+
+  .header-mobile-menu {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin: 12px 18px 0;
+    background: #ffffff;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.06);
+    transition: max-height 0.28s ease, opacity 0.22s ease, padding 0.22s ease, margin-top 0.22s ease;
+    padding: 0;
+  }
+
+  .header-mobile-menu.is-open {
+    max-height: 160px;
+    opacity: 1;
+    padding: 4px 0;
+  }
+
+  .header-mobile-menu__item {
+    width: 100%;
+    text-align: left;
+    padding: 17px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111111;
+    background: #ffffff;
+    border: 0;
+  }
+
+  .header-mobile-menu__item+.header-mobile-menu__item {
+    border-top: 1px solid rgba(17, 24, 39, 0.08);
+  }
+
+  .header-mobile-menu__item:active {
+    background: #f8fafc;
+  }
+
+  .header-drawer {
+    position: static;
+    width: auto;
+    padding: 8px 18px 0;
+    margin: 0 0 8px;
+  }
+
+  .header-drawer__panel {
+    display: none;
+    padding: 16px 18px;
+    background: #ffffff;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #374151;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+  }
+
+  .header-drawer__panel.is-active {
     display: block;
   }
 
-  .hero-benefit-accordion__note {
-    font-size: 12px;
-    letter-spacing: -0.03em;
-    line-height: 1.45;
-    white-space: nowrap;
+  .header-drawer__panel+.header-drawer__panel {
+    margin-top: 8px;
   }
 
-  .hero-saas__eyebrow-wrap {
-    display: none;
+  .hero.hero-saas {
+    padding-top: 12px;
   }
 }

@@ -27,83 +27,6 @@
       color: #ffffff;
       border-color: #5c83ed;
     }
-
-    .hero-benefit-accordion {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
-      margin-top: 0;
-    }
-
-    .hero-benefit-accordion.is-open {
-      max-height: 520px;
-      opacity: 1;
-      margin-top: 18px;
-    }
-
-    .hero-benefit-accordion__inner {
-      padding: 18px 18px 16px;
-      border: 1px solid rgba(17, 24, 39, 0.08);
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(92, 131, 237, 0.06) 0%, rgba(92, 131, 237, 0.02) 100%);
-    }
-
-    .hero-benefit-accordion__title {
-      margin: 0 0 12px;
-      font-size: 15px;
-      font-weight: 800;
-      color: #111827;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-benefit-accordion__list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 10px;
-    }
-
-    .hero-benefit-accordion__list li {
-      position: relative;
-      padding-left: 18px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #4b5563;
-      word-break: keep-all;
-    }
-
-    .hero-benefit-accordion__list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: #5c83ed;
-      font-weight: 800;
-    }
-
-    .hero-benefit-accordion__note {
-      margin: 12px 0 0;
-      font-size: 12px;
-      line-height: 1.55;
-      color: #8b93a3;
-    }
-
-    @media (max-width: 768px) {
-      .hero-benefit-accordion__inner {
-        padding: 16px 14px 14px;
-        border-radius: 16px;
-      }
-
-      .hero-benefit-accordion__title {
-        font-size: 14px;
-      }
-
-      .hero-benefit-accordion__list li {
-        font-size: 13px;
-      }
-    }
   </style>
 </head>
 
@@ -142,14 +65,22 @@
       </a>
 
       <nav class="header-nav" aria-label="Primary navigation">
-        <button type="button" class="header-nav__link js-head-toggle" data-target="about" aria-expanded="false"
-          aria-controls="aboutPanel">
-          지모 소개
-        </button>
+        <div class="header-nav__desktop">
+          <button type="button" class="header-nav__link js-head-toggle" data-target="about" aria-expanded="false"
+            aria-controls="aboutPanel">
+            지모 소개
+          </button>
 
-        <button type="button" class="header-nav__link js-head-toggle" data-target="ad" aria-expanded="false"
-          aria-controls="adPanel">
-          광고 문의
+          <button type="button" class="header-nav__link js-head-toggle" data-target="ad" aria-expanded="false"
+            aria-controls="adPanel">
+            광고 문의
+          </button>
+        </div>
+
+        <button type="button" class="header-menu-toggle" id="headerMenuToggle" aria-expanded="false"
+          aria-controls="headerMobileMenu" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
         </button>
       </nav>
     </div>
@@ -168,6 +99,15 @@
       <strong>Premium</strong> · 랜딩 + 광고 + 관리자형 Profit
     </div>
 
+  </div>
+
+  <div class="header-mobile-menu" id="headerMobileMenu">
+    <button type="button" class="header-mobile-menu__item js-mobile-head-toggle" data-target="about">
+      지모 소개
+    </button>
+    <button type="button" class="header-mobile-menu__item js-mobile-head-toggle" data-target="ad">
+      광고 문의
+    </button>
   </div>
 
   <!-- HERO -->
@@ -423,10 +363,9 @@
       <div class="zimo-final__top">
         <span class="zimo-final__eyebrow">zimo final guide</span>
         <h2 class="zimo-final__title">
-          집은 같아도<br />
-          <span>좋은 조건은<br />
-            먼저 움직인 사람이<br />
-            선점합니다</span>
+          집은 같아도<br>
+          좋은 조건은<br>
+          <span class="last-line">먼저 움직인 사람이 선점합니다</span>
         </h2>
       </div>
 
@@ -455,7 +394,7 @@
         </div>
         <div class="zimo-final__info-item">
           <span class="zimo-final__info-label">상담채널</span>
-          <strong>전화 / 카카오 상담 가능</strong>
+          <strong>전화 / 카카오 / 문자</strong>
         </div>
         <div class="zimo-final__info-item">
           <span class="zimo-final__info-label">zimo 안내</span>
@@ -465,7 +404,6 @@
 
     </div>
   </section>
-
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const benefitBtn = document.getElementById("benefitToggleBtn");
@@ -477,6 +415,76 @@
         e.preventDefault();
         benefitAccordion.classList.toggle("is-open");
         benefitBtn.classList.toggle("is-open");
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.getElementById("headerMenuToggle");
+      const mobileMenu = document.getElementById("headerMobileMenu");
+      const mobileMenuItems = document.querySelectorAll(".js-mobile-head-toggle");
+      const panels = document.querySelectorAll(".header-drawer__panel");
+
+      if (!menuToggle || !mobileMenu) return;
+
+      function closePanels() {
+        panels.forEach(panel => panel.classList.remove("is-active"));
+      }
+
+      function openMenu() {
+        mobileMenu.classList.add("is-open");
+        menuToggle.classList.add("is-open");
+        menuToggle.setAttribute("aria-expanded", "true");
+      }
+
+      function closeMenu() {
+        mobileMenu.classList.remove("is-open");
+        menuToggle.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
+
+      menuToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+
+        const isOpen = mobileMenu.classList.contains("is-open");
+
+        if (isOpen) {
+          closeMenu();
+          closePanels();
+        } else {
+          openMenu();
+        }
+      });
+
+      mobileMenuItems.forEach(item => {
+        item.addEventListener("click", function (e) {
+          e.stopPropagation();
+
+          const target = this.dataset.target;
+          const targetPanel = document.querySelector('.header-drawer__panel[data-panel="' + target + '"]');
+          const isActive = targetPanel && targetPanel.classList.contains("is-active");
+
+          closePanels();
+
+          if (!isActive && targetPanel) {
+            targetPanel.classList.add("is-active");
+          }
+
+          /* 메뉴는 닫지 않음 */
+          openMenu();
+        });
+      });
+
+      document.addEventListener("click", function (e) {
+        const insideMenu =
+          menuToggle.contains(e.target) ||
+          mobileMenu.contains(e.target) ||
+          e.target.closest(".header-drawer");
+
+        if (!insideMenu) {
+          closeMenu();
+          closePanels();
+        }
       });
     });
   </script>
