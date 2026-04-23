@@ -392,7 +392,7 @@ select {
   display: inline-flex;
   align-items: center;
   font-family: 'GmarketSansMedium', var(--font-sans);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1;
@@ -597,6 +597,7 @@ select {
 }
 
 @media (min-width: 992px) {
+
   .hero-saas-card--summary {
     min-height: 88px;
     gap: 14px;
@@ -608,6 +609,35 @@ select {
   .hero-saas__right>.hero-saas-card--summary {
     min-height: 88px;
     padding: 18px 20px;
+  }
+
+  /* 위계 조정 */
+  .hero-saas-card__value {
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .hero-saas-card__stats--3col .hero-saas-card__value {
+    font-size: 17px;
+  }
+
+  .hero-saas-card__summary-text {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .hero-saas-card__label,
+  .hero-saas-card__summary-label {
+    color: #8e95a1;
+  }
+
+  .hero-saas-card--secondary .hero-saas-card__value {
+    line-height: 1.45;
+  }
+
+  .hero-saas-card--secondary .hero-saas-card__stat:nth-child(2) .hero-saas-card__value {
+    max-width: 180px;
   }
 }
 
@@ -1133,29 +1163,35 @@ select {
 
 @media (max-width: 768px) {
   :root {
-    --header-h: 72px;
+    --header-h: 52px;
+  }
+
+  .site-header {
+    background: transparent;
   }
 
   .header-inner {
     min-height: var(--header-h);
-    gap: 12px;
+    gap: 10px;
   }
 
   .header-brand__logo {
-    font-size: 1.4rem;
+    font-size: 1.28rem;
   }
 
   .header-brand__tagline {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 
   .header-nav {
-    display: none;
+    display: flex !important;
+    gap: 12px;
+    align-items: center;
   }
 
-  .hero.hero-saas {
-    padding-top: 20px;
-    padding-bottom: 40px;
+  .header-nav__link {
+    font-size: 14px;
+    font-weight: 700;
   }
 
   .hero-saas__grid {
@@ -1394,14 +1430,61 @@ select {
   }
 
   .relay-text {
-    font-size: 12.5px;
+    font-size: 16px;
   }
 
   .hero-saas-card__topline {
     gap: 8px;
   }
 
+  /* 헤더와 히어로 간격 축소 */
+  .hero.hero-saas {
+    padding-top: 4px;
+    padding-bottom: 40px;
+  }
+
+  .hero-saas__eyebrow-wrap {
+    margin-bottom: 14px;
+  }
+
+  /* 두 번째 카드만 모바일 2열 + 하단 버튼 */
+  .hero-saas-card--secondary .hero-saas-card__divider {
+    display: none;
+  }
+
+  .hero-saas-card--secondary .hero-saas-card__stats--3col {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 14px;
+  }
+
+  .hero-saas-card--secondary .hero-saas-card__stats--3col .hero-saas-card__stat {
+    padding: 0;
+    border-right: 0;
+  }
+
+  .hero-saas-card--secondary .hero-saas-card__stats--3col .hero-saas-card__stat:nth-child(1) {
+    border-right: 1px solid var(--line);
+    padding-right: 14px;
+  }
+
+  .hero-saas-card--secondary .hero-saas-card__stats--3col .hero-saas-card__stat:nth-child(2) {
+    padding-left: 14px;
+  }
+
+  .hero-saas-card--secondary .hero-saas-card__stat--button {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+  }
+
+  /* 버튼 크기 유지 */
+  .hero-saas-card--secondary .hero-card-action {
+    width: 100%;
+    max-width: 100%;
+  }
 }
+
 
 @media (min-width: 769px) {
   .zimo-info-tabs__nav {
@@ -1449,16 +1532,21 @@ select {
   }
 }
 
+.mobile-only-break {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .header-nav {
     display: flex !important;
-    gap: 14px;
+    gap: 10px;
     align-items: center;
   }
 
   .header-nav__link {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
   }
 
   .header-drawer {
@@ -1472,13 +1560,26 @@ select {
     font-size: 13px;
     line-height: 1.65;
   }
-}
 
-@media (max-width: 768px) {
   .zimo-info-tabs__desc {
     max-width: 320px;
     margin: 18px auto 0;
     line-height: 1.75;
     word-break: keep-all;
+  }
+
+  .mobile-only-break {
+    display: block;
+  }
+
+  .hero-benefit-accordion__note {
+    font-size: 12px;
+    letter-spacing: -0.03em;
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+
+  .hero-saas__eyebrow-wrap {
+    display: none;
   }
 }

@@ -15,6 +15,96 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.css" />
 
   <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .hero-saas-card__stat--button {
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-end;
+    }
+
+    .hero-card-action--ghost.is-open {
+      background: #5c83ed;
+      color: #ffffff;
+      border-color: #5c83ed;
+    }
+
+    .hero-benefit-accordion {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+      margin-top: 0;
+    }
+
+    .hero-benefit-accordion.is-open {
+      max-height: 520px;
+      opacity: 1;
+      margin-top: 18px;
+    }
+
+    .hero-benefit-accordion__inner {
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(92, 131, 237, 0.06) 0%, rgba(92, 131, 237, 0.02) 100%);
+    }
+
+    .hero-benefit-accordion__title {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-benefit-accordion__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .hero-benefit-accordion__list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #4b5563;
+      word-break: keep-all;
+    }
+
+    .hero-benefit-accordion__list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #5c83ed;
+      font-weight: 800;
+    }
+
+    .hero-benefit-accordion__note {
+      margin: 12px 0 0;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #8b93a3;
+    }
+
+    @media (max-width: 768px) {
+      .hero-benefit-accordion__inner {
+        padding: 16px 14px 14px;
+        border-radius: 16px;
+      }
+
+      .hero-benefit-accordion__title {
+        font-size: 14px;
+      }
+
+      .hero-benefit-accordion__list li {
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -52,27 +142,32 @@
       </a>
 
       <nav class="header-nav" aria-label="Primary navigation">
-        <button type="button" class="header-nav__link js-head-toggle" data-target="about">
+        <button type="button" class="header-nav__link js-head-toggle" data-target="about" aria-expanded="false"
+          aria-controls="aboutPanel">
           지모 소개
         </button>
 
-        <button type="button" class="header-nav__link js-head-toggle" data-target="ad">
+        <button type="button" class="header-nav__link js-head-toggle" data-target="ad" aria-expanded="false"
+          aria-controls="adPanel">
           광고 문의
         </button>
       </nav>
     </div>
   </header>
   <div class="header-drawer" id="header-drawer">
-    <div class="header-drawer__panel" data-panel="about">
-      같은 집, 다른 조건.<br>
-      지모는 분양 현장의 광고 효율과<br>
-      실제 문의 전환을 높입니다.
+
+    <div class="header-drawer__panel" id="aboutPanel" data-panel="about">
+      같은 집, 다른 조건<br>
+      지모를 통하면 일반 문의보다<br>
+      더 좋은 조건을 먼저 확인할 수 있습니다.
     </div>
 
-    <div class="header-drawer__panel" data-panel="ad">
-      유튜브 · 메타 · 네이버 광고 · 랜딩페이지까지<br>
-      현장 맞춤형으로 운영합니다.
+    <div class="header-drawer__panel" id="adPanel" data-panel="ad">
+      <strong>Basic</strong> · 랜딩 + 기본광고<br>
+      <strong>Pro</strong> · 랜딩 + 추적 + Profit<br>
+      <strong>Premium</strong> · 랜딩 + 광고 + 관리자형 Profit
     </div>
+
   </div>
 
   <!-- HERO -->
@@ -95,8 +190,9 @@
           </h1>
 
           <p class="hero-saas__desc">
-            지모를 통해 먼저 확인해야 하는 건<br />
-            매물 설명이 아니라 실제 계약 조건과 전용 혜택입니다.
+            문수로 생활권과 옥동생활권을 함께 누리고<br>
+            파크뷰 · 리버뷰 선호 세대와<br class="mobile-only-break">
+            실제 계약 조건을 먼저 확인해보세요.
           </p>
 
           <div class="hero-saas__cta-row">
@@ -134,13 +230,13 @@
 
             <div class="hero-saas-card__stats hero-saas-card__stats--3col hero-saas-card__stats--actions">
               <div class="hero-saas-card__stat">
-                <span class="hero-saas-card__label">위치</span>
-                <strong class="hero-saas-card__value">남구 신정동</strong>
+                <span class="hero-saas-card__label">입지</span>
+                <strong class="hero-saas-card__value">남구 신정동 · 옥동생활권</strong>
               </div>
 
               <div class="hero-saas-card__stat">
-                <span class="hero-saas-card__label">세대수</span>
-                <strong class="hero-saas-card__value">366</strong>
+                <span class="hero-saas-card__label">규모</span>
+                <strong class="hero-saas-card__value">366세대 · 84 단일평형</strong>
               </div>
 
               <div class="hero-saas-card__stat hero-saas-card__stat--button">
@@ -156,19 +252,37 @@
             <div class="hero-saas-card__stats hero-saas-card__stats--3col hero-saas-card__stats--actions">
               <div class="hero-saas-card__stat">
                 <span class="hero-saas-card__label">지모 전용 혜택</span>
-                <strong class="hero-saas-card__value">계약조건 우선 공개</strong>
+                <strong class="hero-saas-card__value">옵션 + 조건<br>선호세대 상담</strong>
               </div>
 
               <div class="hero-saas-card__stat">
-                <span class="hero-saas-card__label">상담 방법</span>
-                <strong class="hero-saas-card__value">전화/ 문자/ 카카오 1:1</strong>
+                <span class="hero-saas-card__label">프리미엄 포인트</span>
+                <strong class="hero-saas-card__value">파크뷰 · 리버뷰<br>상담 가능</strong>
               </div>
 
               <div class="hero-saas-card__stat hero-saas-card__stat--button">
-                <a href="#" class="hero-card-action hero-card-action--ghost"
-                  onclick="event.preventDefault(); alert('선착순 한정세대, 7천만원 상당 유상옵션 제공\n\n지금 문의하면 적용 여부 바로 안내');">
+                <a href="#" class="hero-card-action hero-card-action--ghost" id="benefitToggleBtn">
                   조건 보기
                 </a>
+              </div>
+            </div>
+
+            <div class="hero-benefit-accordion" id="heroBenefitAccordion">
+              <div class="hero-benefit-accordion__inner">
+                <h3 class="hero-benefit-accordion__title">지모 전용 조건 안내</h3>
+
+                <ul class="hero-benefit-accordion__list">
+                  <li>
+                    7천만원 상당 유상옵션 제공<br class="mobile-only-break">
+                    가능 세대가 있습니다.
+                  </li>
+                  <li>파크뷰 · 리버뷰 선호 세대 상담이 가능합니다.</li>
+                  <li>실제 가능 조건과 적용 혜택은 잔여세대 및 상담 시점에 따라 달라질 수 있습니다.</li>
+                </ul>
+
+                <p class="hero-benefit-accordion__note">
+                  ※ 옵션 및 세대별 적용 여부는 상담 시 최종 안내됩니다.
+                </p>
               </div>
             </div>
           </article>
@@ -183,8 +297,13 @@
             </div>
 
             <div class="hero-saas-card__summary-copy">
-              <span class="hero-saas-card__summary-label">지모를 통해 확인하는 것</span>
-              <strong class="hero-saas-card__summary-text">매물 설명 X → 실제 계약 조건 O</strong>
+              <span class="hero-saas-card__summary-label">
+                지모를 통해 먼저 확인하는 것
+              </span>
+
+              <strong class="hero-saas-card__summary-text">
+                잔여세대 + 실제 가능 조건
+              </strong>
             </div>
           </article>
 
@@ -200,11 +319,14 @@
       <div class="zimo-info-tabs__top">
         <span class="zimo-info-tabs__eyebrow">zimo detail check</span>
         <h2 class="zimo-info-tabs__title">
-          <span>내부와 구성도 확인하세요</span>
+          <span>
+            내부와 구성도<br class="mobile-only-break">
+            확인해 보세요
+          </span>
         </h2>
         <p class="zimo-info-tabs__desc">
-          평형, 유니트, 커뮤니티까지
-          필요한 정보만 눌러서 볼 수 있게 구성했습니다.
+          평형, 유니트, 커뮤니티까지<br class="mobile-only-break">
+          필요한 정보만 볼 수 있게 구성했습니다.
         </p>
       </div>
 
@@ -302,14 +424,17 @@
         <span class="zimo-final__eyebrow">zimo final guide</span>
         <h2 class="zimo-final__title">
           집은 같아도<br />
-          <span>계약 조건은 달라집니다</span>
+          <span>좋은 조건은<br />
+            먼저 움직인 사람이<br />
+            선점합니다</span>
         </h2>
       </div>
 
       <div class="zimo-final__closing">
         <p class="zimo-final__closing-text">
-          이제는 매물을 더 보는 것보다,
-          <strong>조건이 더 좋은 쪽을 먼저 확인할 차례입니다.</strong>
+          이제는 매물을 더 보는 것보다,<br class="mobile-only-break">
+          선호 세대와 더 좋은 조건을<br class="mobile-only-break">
+          먼저 확인할 차례입니다.
         </p>
 
         <div class="zimo-final__cta-row">
@@ -343,75 +468,15 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const tabs = document.querySelectorAll(".zimo-info-tab");
-      const panels = document.querySelectorAll(".zimo-info-panel");
+      const benefitBtn = document.getElementById("benefitToggleBtn");
+      const benefitAccordion = document.getElementById("heroBenefitAccordion");
 
-      if (!tabs.length || !panels.length) return;
+      if (!benefitBtn || !benefitAccordion) return;
 
-      function closeAllTabs() {
-        tabs.forEach((tab) => {
-          tab.classList.remove("is-active");
-          tab.setAttribute("aria-selected", "false");
-        });
-
-        panels.forEach((panel) => {
-          panel.classList.remove("is-active");
-        });
-      }
-
-      function openTab(target) {
-        const targetTab = document.querySelector(`.zimo-info-tab[data-tab="${target}"]`);
-        const targetPanel = document.querySelector(`.zimo-info-panel[data-panel="${target}"]`);
-
-        if (!targetTab || !targetPanel) return;
-
-        closeAllTabs();
-        targetTab.classList.add("is-active");
-        targetTab.setAttribute("aria-selected", "true");
-        targetPanel.classList.add("is-active");
-      }
-
-      document.addEventListener("click", function (e) {
-        const tab = e.target.closest(".zimo-info-tab");
-        if (!tab) return;
-
+      benefitBtn.addEventListener("click", function (e) {
         e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-
-        const target = tab.dataset.tab;
-        const isOpen = tab.classList.contains("is-active");
-
-        if (isOpen) {
-          closeAllTabs();
-        } else {
-          openTab(target);
-        }
-      }, true);
-    });
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const buttons = document.querySelectorAll(".js-head-toggle");
-      const panels = document.querySelectorAll(".header-drawer__panel");
-
-      function closeAll() {
-        panels.forEach(p => p.classList.remove("is-active"));
-      }
-
-      buttons.forEach(btn => {
-        btn.addEventListener("click", function () {
-          const target = this.dataset.target;
-          const panel = document.querySelector(`.header-drawer__panel[data-panel="${target}"]`);
-
-          const opened = panel.classList.contains("is-active");
-
-          closeAll();
-
-          if (!opened) {
-            panel.classList.add("is-active");
-          }
-        });
+        benefitAccordion.classList.toggle("is-open");
+        benefitBtn.classList.toggle("is-open");
       });
     });
   </script>
