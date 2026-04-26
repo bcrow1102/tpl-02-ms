@@ -959,7 +959,7 @@
             balanceValue.textContent = formatKrwMan(item.balance);
             moveInValue.innerHTML = `${formatKrwMan(item.realMoveInCost)}<span class="guide-list__sub">현재 기준 실제 준비 금액</span>`;
 
-            returnPolicyText.textContent = item.returnPolicy || '매입을 선택하지 않을 경우 반환 구조는 상담 시 안내드립니다.';
+            returnPolicyText.innerHTML = '매입을 선택하지 않을 경우 반환 구조는<br>상담 시 안내드립니다.';
             ctaText.textContent = `${item.dong}동 ${item.ho}호 기준으로 전세가, 분양금액, 계약금 구조를 바로 상담받아보세요.`;
 
             guideEmptyState.hidden = true;
