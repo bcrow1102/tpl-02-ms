@@ -197,9 +197,7 @@ button {
 .hero-saas__bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(92, 131, 237, 0.08) 0%, rgba(92, 131, 237, 0) 34%),
-    linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  background: #ffffff;
   pointer-events: none;
 }
 
