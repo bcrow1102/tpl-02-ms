@@ -593,6 +593,14 @@
             .price-guide {
                 padding: 84px 16px 44px;
             }
+
+            #unitDesc,
+            #realCashDesc {
+                display: block;
+                line-height: 1.6;
+                word-break: keep-all;
+            }
+
         }
     </style>
 </head>
@@ -887,10 +895,11 @@
 
         function renderUnit(item) {
             unitTitle.textContent = `${item.dong}동 ${item.ho}호 · ${item.type}`;
-            unitDesc.textContent = `${item.dong}동 ${item.ho}호 기준 정상 조회 결과입니다.`;
+            unitDesc.innerHTML = `${item.dong}동 ${item.ho}호 기준<br>정상 조회 결과입니다.`;
 
             realCashValue.textContent = formatKrwMan(item.preMoveInCost);
-            realCashDesc.textContent = `${item.dong}동 ${item.ho}호 기준 입주 전까지 준비해야 하는 금액입니다.`;
+
+            realCashDesc.innerHTML = `${item.dong}동 ${item.ho}호 기준<br>입주 전까지 준비해야 하는 금액입니다.`;
 
             jeonseValue.innerHTML = `${formatKrwMan(item.jeonse)}<span class="guide-list__sub">10년간 거주 기준 금액</span>`;
             saleValue.innerHTML = `${formatKrwMan(item.salePrice)}<span class="guide-list__sub">10년 후 매입 결정 시 금액</span>`;
