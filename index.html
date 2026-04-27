@@ -996,6 +996,22 @@
       });
     });
   </script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.innerWidth > 900) return;
+
+      const heroItems = document.querySelectorAll('.hero-primary-media__bottom > *');
+      if (!heroItems.length) return;
+
+      const delays = [2000, 3000, 4300];
+
+      heroItems.forEach(function (item, index) {
+        setTimeout(function () {
+          item.classList.add('is-visible');
+        }, delays[index] || 3000);
+      });
+    });
+  </script>
 </body>
 
 </html>
