@@ -704,8 +704,8 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: .72;
-  filter: saturate(1.05) contrast(1.03) brightness(1.02);
+  opacity: .86;
+  filter: saturate(1.1) contrast(1.12) brightness(1.01);
 }
 
 .hero-primary-media__content {
@@ -2166,6 +2166,9 @@ button {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    width: calc(100% - 16px);
+    margin: 0 auto;
+    border-radius: 10px;
   }
 
   .hero-primary-media__icon {
