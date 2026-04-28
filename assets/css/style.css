@@ -1883,7 +1883,7 @@ button {
   }
 
   .zimo-info-tab:last-child {
-    width: 100%;
+    width: calc(50% - 4px);
   }
 
   .zimo-info-panel__media {
