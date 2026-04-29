@@ -2271,3 +2271,89 @@ button {
     line-height: 1.35;
   }
 }
+
+/* =========================================================
+   FIX: MOBILE HEADER MENU RESTORE
+   - 모바일에서 지모소개/광고문의는 햄버거 안으로
+========================================================= */
+
+@media (max-width: 900px) {
+  .header-nav__desktop {
+    display: none !important;
+  }
+
+  .header-menu-toggle {
+    display: inline-flex !important;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .header-menu-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: #b6bec9;
+    transition: all 0.22s ease;
+  }
+
+  .header-menu-toggle.is-open span:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .header-menu-toggle.is-open span:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  .header-mobile-menu {
+    display: block !important;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0 18px;
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.06);
+    transition:
+      max-height 0.28s ease,
+      opacity 0.22s ease,
+      padding 0.22s ease,
+      margin-top 0.22s ease;
+  }
+
+  .header-mobile-menu.is-open {
+    max-height: 160px;
+    opacity: 1;
+    margin-top: 8px;
+    padding: 4px 0;
+  }
+
+  .header-mobile-menu__item {
+    width: 100%;
+    text-align: left;
+    padding: 16px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111111;
+    background: #ffffff;
+    border: 0;
+  }
+
+  .header-mobile-menu__item+.header-mobile-menu__item {
+    border-top: 1px solid rgba(17, 24, 39, 0.08);
+  }
+
+  .header-mobile-menu__item:active {
+    background: #f8fafc;
+  }
+}
