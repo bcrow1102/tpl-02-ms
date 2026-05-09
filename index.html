@@ -151,8 +151,8 @@
           <span class="floating-money-card__line"></span>
 
           <p class="floating-money-card__sub">
-            상당 유상옵션<br>
-            혜택 상담
+            유상옵션 적용<br>
+            가능 세대 확인
           </p>
 
           <span class="floating-money-card__note">
@@ -253,7 +253,7 @@
 
               <div class="hero-saas-card__stat hero-saas-card__stat--button">
                 <a href="#" class="hero-card-action hero-card-action--ghost" id="benefitToggleBtn">
-                  조건 보기
+                  내 조건 확인
                 </a>
               </div>
 
@@ -262,16 +262,17 @@
             <div class="hero-benefit-accordion" id="heroBenefitAccordion">
               <div class="hero-benefit-accordion__inner">
 
-                <h3 class="hero-benefit-accordion__title">지모 전용 조건 안내</h3>
+                <h3 class="hero-benefit-accordion__title">전화로 바로 확인하세요</h3>
 
                 <ul class="hero-benefit-accordion__list">
-                  <li>7천만원 상당 유상옵션 제공 가능 세대가 있습니다.</li>
-                  <li>파크뷰 · 리버뷰 선호 세대 상담 가능합니다.</li>
-                  <li>실제 가능 조건은 상담 시점에 따라 달라질 수 있습니다.</li>
+                  <li>7천만원 상당 유상옵션 적용 가능 여부</li>
+                  <li>계약금 1천만원 시작 가능 세대</li>
+                  <li>현재 남은 임대 가능 동·호수</li>
+                  <li>10년 후 5억대 매입 조건</li>
                 </ul>
 
                 <p class="hero-benefit-accordion__note">
-                  ※ 세대별 적용 여부는 상담 시 최종 안내됩니다.
+                  ※ 잔여세대와 혜택은 상담 시점에 따라 달라질 수 있습니다.
                 </p>
 
               </div>
@@ -586,7 +587,7 @@
       const heroItems = document.querySelectorAll('.hero-primary-media__bottom > *');
       if (!heroItems.length) return;
 
-      const delays = [2000, 3000, 4300];
+      const delays = [900, 1500, 2300];
 
       heroItems.forEach(function (item, index) {
         setTimeout(function () {
