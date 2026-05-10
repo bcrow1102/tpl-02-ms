@@ -15,6 +15,193 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.css" />
 
   <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    .hero-saas__cta {
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .hero-saas__safe-note {
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.68);
+      letter-spacing: -0.03em;
+    }
+
+    .hero-saas__cta--ghost {
+      border: 1px solid rgba(15, 23, 42, 0.14);
+      background: rgba(255, 255, 255, 0.72);
+      color: #111827;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    .hero-saas__cta--ghost:hover {
+      border-color: rgba(15, 23, 42, 0.22);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .benefit-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .benefit-modal.is-open {
+      display: flex;
+    }
+
+    .benefit-modal__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.42);
+      backdrop-filter: blur(8px);
+    }
+
+    .benefit-modal__panel {
+      position: relative;
+      width: min(420px, 100%);
+      padding: 30px 24px 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #fff7fa 0%, #ffffff 62%, #f8fbff 100%);
+      box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.24),
+        inset 0 0 0 1px rgba(15, 23, 42, 0.06);
+      color: #111827;
+      text-align: center;
+    }
+
+    .benefit-modal__panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18%;
+      right: 18%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 143, 178, 0.9), transparent);
+    }
+
+    .benefit-modal__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 214, 226, 0.72);
+      color: #334155;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .benefit-modal__eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #ffe6ee;
+      color: #be476d;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .benefit-modal__title {
+      margin: 0;
+      font-size: 33px;
+      line-height: 1.1;
+      letter-spacing: -0.07em;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .benefit-modal__desc {
+      margin: 16px 0 22px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #475569;
+      letter-spacing: -0.04em;
+    }
+
+    .benefit-modal__actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .benefit-modal__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .benefit-modal__btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .benefit-modal__btn--primary {
+      background: #0064ff;
+      color: #ffffff;
+      box-shadow: 0 12px 26px rgba(0, 100, 255, 0.22);
+    }
+
+    .benefit-modal__btn--secondary {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .benefit-modal__note {
+      margin: 16px 0 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #64748b;
+      letter-spacing: -0.03em;
+    }
+
+    @media (max-width: 540px) {
+      .benefit-modal {
+        align-items: flex-end;
+        padding: 14px;
+      }
+
+      .benefit-modal__panel {
+        width: 100%;
+        padding: 28px 18px 20px;
+        border-radius: 24px;
+      }
+
+      .benefit-modal__title {
+        font-size: 30px;
+      }
+
+      .benefit-modal__desc {
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .benefit-modal__btn {
+        min-height: 54px;
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -118,15 +305,19 @@
           </p>
 
           <div class="hero-saas__cta-row">
-            <a href="tel:01057861556" class="hero-saas__cta hero-saas__cta--primary" onclick="fbq('track','Lead')">
-              더 많은 혜택 받기
-            </a>
+            <button type="button" class="hero-saas__cta hero-saas__cta--primary" id="benefitModalOpen">
+              숨은 혜택 확인하기
+            </button>
 
             <a href="https://open.kakao.com/o/sAK9G6qi" class="hero-saas__cta hero-saas__cta--ghost" target="_blank"
-              rel="noopener">
+              rel="noopener" onclick="if(window.fbq){fbq('track','Lead',{content_name:'hero_kakao'});}">
               카카오 상담
             </a>
           </div>
+
+          <p class="hero-saas__safe-note">
+            조건 확인 후 안내드립니다. 무리한 상담은 진행하지 않습니다.
+          </p>
         </div>
 
         <!-- 중앙 플로팅 계약금 카드 -->
@@ -170,8 +361,8 @@
               <video class="hero-primary-media__video" autoplay muted loop playsinline preload="metadata">
                 <source src="assets/videos/0426.mp4" type="video/mp4">
               </video>
-              <a href="tel:01057861556" class="hero-mobile-phone-bar" onclick="fbq('track','Lead')">
-                상담전화 010-5786-1556
+              <a href="tel:18777702" class="hero-mobile-phone-bar" onclick="fbq('track','Lead')">
+                상담전화 1877-7702
               </a>
 
               <div class="hero-primary-media__content">
@@ -306,6 +497,42 @@
       </div>
     </div>
   </section>
+  <!-- BENEFIT MODAL -->
+  <div class="benefit-modal" id="benefitModal" aria-hidden="true">
+    <div class="benefit-modal__overlay" id="benefitModalOverlay"></div>
+
+    <div class="benefit-modal__panel" role="dialog" aria-modal="true" aria-labelledby="benefitModalTitle">
+      <button type="button" class="benefit-modal__close" id="benefitModalClose" aria-label="닫기">×</button>
+
+      <span class="benefit-modal__eyebrow">문수로 써밋 블루밍</span>
+
+      <h3 class="benefit-modal__title" id="benefitModalTitle">
+        숨은 혜택<br>
+        지금 확인하세요
+      </h3>
+
+      <p class="benefit-modal__desc">
+        지금 전화 또는 문자로 확인하시면<br>
+        더 많은 혜택을 받으실 수 있습니다.
+      </p>
+
+      <div class="benefit-modal__actions">
+        <a href="tel:18777702" class="benefit-modal__btn benefit-modal__btn--primary"
+          onclick="if(window.fbq){fbq('track','Lead',{content_name:'modal_phone'});}">
+          전화로 바로 확인하기
+        </a>
+
+        <a href="sms:18777702" class="benefit-modal__btn benefit-modal__btn--secondary"
+          onclick="if(window.fbq){fbq('track','Lead',{content_name:'modal_sms'});}">
+          문자로 조건 받기
+        </a>
+      </div>
+
+      <p class="benefit-modal__note">
+        무리한 상담 없이 조건 확인 후 안내드립니다.
+      </p>
+    </div>
+  </div>
 
   <!-- INFO TABS -->
   <section class="zimo-info-tabs" id="info-tabs">
@@ -452,7 +679,7 @@
         </p>
 
         <div class="zimo-final__cta-row">
-          <a href="tel:01057861556" class="zimo-btn zimo-btn--primary" onclick="fbq('track','Lead')">
+          <a href="tel:18777702" class="zimo-btn zimo-btn--primary" onclick="fbq('track','Lead')">
             바로 전화상담
           </a>
           <a href="https://open.kakao.com/o/sAK9G6qi" class="zimo-btn zimo-btn--secondary" target="_blank"
@@ -460,7 +687,7 @@
         </div>
 
         <p class="zimo-final__sub-contact">
-          통화가 어려우시면 <a href="sms:01057861556" onclick="fbq('track','Lead')">문자로 문의</a>
+          통화가 어려우시면 <a href="sms:18777702" onclick="fbq('track','Lead')">문자로 문의</a>
         </p>
       </div>
 
@@ -593,6 +820,44 @@
         setTimeout(function () {
           item.classList.add('is-visible');
         }, delays[index] || 3000);
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const openBtn = document.getElementById("benefitModalOpen");
+      const modal = document.getElementById("benefitModal");
+      const closeBtn = document.getElementById("benefitModalClose");
+      const overlay = document.getElementById("benefitModalOverlay");
+
+      if (!openBtn || !modal || !closeBtn || !overlay) return;
+
+      function openModal() {
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        if (window.fbq) {
+          fbq("trackCustom", "BenefitModalOpen", {
+            content_name: "munsuro_hidden_benefit_modal"
+          });
+        }
+      }
+
+      function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      openBtn.addEventListener("click", openModal);
+      closeBtn.addEventListener("click", closeModal);
+      overlay.addEventListener("click", closeModal);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("is-open")) {
+          closeModal();
+        }
       });
     });
   </script>
