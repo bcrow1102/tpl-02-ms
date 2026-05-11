@@ -1042,6 +1042,185 @@
     </script>
 
     <script src="assets/js/main.js"></script>
+
+    <!-- ZIMO Supabase Tracking - Munsuro Profit -->
+    <script>
+        window.ZIMO_PROJECT = "munsuro";
+    </script>
+
+    <script>
+        (function () {
+            const ZIMO_SUPABASE_URL = "https://fduzcmtdhsjkjbhncxgj.supabase.co";
+            const ZIMO_SUPABASE_ANON_KEY = "sb_publishable_AZT434KaqJyXQBI5o1EaEw_hOiEAfpL";
+
+            const PROJECT = window.ZIMO_PROJECT || "unknown";
+            const TABLE = "landing_events";
+            const SESSION_KEY = "zimo_session_id";
+            const STARTED_AT = Date.now();
+
+            function getSessionId() {
+                let id = sessionStorage.getItem(SESSION_KEY);
+
+                if (!id) {
+                    id = Date.now() + "-" + Math.random().toString(36).slice(2);
+                    sessionStorage.setItem(SESSION_KEY, id);
+                }
+
+                return id;
+            }
+
+            function getParam(name) {
+                const params = new URLSearchParams(window.location.search);
+                return params.get(name) || "";
+            }
+
+            function getDevice() {
+                const width = window.innerWidth || document.documentElement.clientWidth;
+
+                if (width <= 768) return "mobile";
+                if (width <= 1024) return "tablet";
+                return "desktop";
+            }
+
+            function getStaySeconds() {
+                return Math.max(0, Math.round((Date.now() - STARTED_AT) / 1000));
+            }
+
+            function buildPayload(eventName, extra) {
+                return {
+                    project: PROJECT,
+                    event_name: eventName,
+
+                    page_url: window.location.href,
+                    referrer: document.referrer || "",
+
+                    utm_source: getParam("utm_source"),
+                    utm_medium: getParam("utm_medium"),
+                    utm_campaign: getParam("utm_campaign"),
+                    utm_content: getParam("utm_content"),
+                    utm_term: getParam("utm_term"),
+
+                    device: getDevice(),
+                    user_agent: navigator.userAgent || "",
+                    session_id: getSessionId(),
+                    stay_seconds: extra && typeof extra.stay_seconds === "number"
+                        ? extra.stay_seconds
+                        : getStaySeconds()
+                };
+            }
+
+            function trackEvent(eventName, extra) {
+                const payload = buildPayload(eventName, extra || {});
+
+                fetch(ZIMO_SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/" + TABLE, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "apikey": ZIMO_SUPABASE_ANON_KEY,
+                        "Authorization": "Bearer " + ZIMO_SUPABASE_ANON_KEY,
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify(payload),
+                    keepalive: true
+                }).catch(function (error) {
+                    console.warn("[ZIMO TRACK ERROR]", error);
+                });
+            }
+
+            function bindClicks() {
+                document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
+                    el.addEventListener("click", function () {
+                        trackEvent("call_click");
+                    });
+                });
+
+                document.querySelectorAll('a[href^="sms:"]').forEach(function (el) {
+                    el.addEventListener("click", function () {
+                        trackEvent("sms_click");
+                    });
+                });
+
+                document.querySelectorAll('a[href*="open.kakao.com"], a[href*="pf.kakao.com"], a[href*="kakao"]').forEach(function (el) {
+                    el.addEventListener("click", function () {
+                        trackEvent("kakao_click");
+                    });
+                });
+
+                const searchBtn = document.getElementById("guideSearchBtn");
+                if (searchBtn) {
+                    searchBtn.addEventListener("click", function () {
+                        trackEvent("profit_search_click");
+                    });
+                }
+            }
+
+            function bindScroll() {
+                let sent50 = false;
+                let sent90 = false;
+
+                window.addEventListener("scroll", function () {
+                    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                    const docHeight = Math.max(
+                        document.body.scrollHeight,
+                        document.documentElement.scrollHeight
+                    ) - window.innerHeight;
+
+                    if (docHeight <= 0) return;
+
+                    const percent = Math.round((scrollTop / docHeight) * 100);
+
+                    if (!sent50 && percent >= 50) {
+                        sent50 = true;
+                        trackEvent("scroll_50");
+                    }
+
+                    if (!sent90 && percent >= 90) {
+                        sent90 = true;
+                        trackEvent("scroll_90");
+                    }
+                }, { passive: true });
+            }
+
+            function bindStay() {
+                let sent30 = false;
+                let sent60 = false;
+
+                setInterval(function () {
+                    const seconds = getStaySeconds();
+
+                    if (!sent30 && seconds >= 30) {
+                        sent30 = true;
+                        trackEvent("stay_30s", { stay_seconds: 30 });
+                    }
+
+                    if (!sent60 && seconds >= 60) {
+                        sent60 = true;
+                        trackEvent("stay_60s", { stay_seconds: 60 });
+                    }
+                }, 5000);
+            }
+
+            function bindExit() {
+                window.addEventListener("pagehide", function () {
+                    trackEvent("page_exit", { stay_seconds: getStaySeconds() });
+                });
+            }
+
+            function init() {
+                trackEvent("page_view");
+                bindClicks();
+                bindScroll();
+                bindStay();
+                bindExit();
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", init);
+            } else {
+                init();
+            }
+        })();
+    </script>
 </body>
 
 </html>
